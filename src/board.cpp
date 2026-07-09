@@ -1,7 +1,6 @@
 #include "Board.h"
 #include <iostream>
 
-
 Board::Board()
 {
     //Usa o metodo para construir um board novo
@@ -25,7 +24,7 @@ void Board::initialize()
 
     //Poe em posicao o resto das pecas
     int j = 7;
-    for(int i = 0; i < 8; i++){
+    for(int i = 0; i <= 4; i++){
         if(i == 1){
             squares[0][i] = BROOK;
             squares[0][j] = BROOK;
@@ -47,7 +46,7 @@ void Board::initialize()
             squares[7][i] = WQUEEN;
             squares[7][j] = WKING;
         } 
-        j++;
+        j--;
    }
 }
 
