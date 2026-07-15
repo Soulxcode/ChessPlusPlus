@@ -24,40 +24,41 @@ void Board::initialize()
 
     //Poe em posicao o resto das pecas
     int j = 7;
-    for(int i = 0; i <= 4; i++){
-        if(i == 1){
+    for(int i = 0; i < 4; i++){
+        if(i == 0){
             squares[0][i] = BROOK;
             squares[0][j] = BROOK;
             squares[7][i] = WROOK;
             squares[7][j] = WROOK;
-        } else if (i == 2){
+        } else if (i == 1){
             squares[0][i] = BKNIGHT;
             squares[0][j] = BKNIGHT;
             squares[7][i] = WKNIGHT;
             squares[7][j] = WKNIGHT;
-        } else if (i == 3){
+        } else if (i == 2){
             squares[0][i] = BBISHOP;
             squares[0][j] = BBISHOP;
             squares[7][i] = WBISHOP;
             squares[7][j] = WBISHOP;
-        } else if (i == 4){
+        }    
+        else if(i == 3){
             squares[0][i] = BQUEEN;
             squares[0][j] = BKING;
             squares[7][i] = WQUEEN;
             squares[7][j] = WKING;
-        } 
+        }    
         j--;
    }
 }
 
-Piece Board::getPiece(int row, int col) const
+Piece Board::getPiece(const Position &position) const
 {
     //Faz return da peca que está na posicao pedida
-    return squares[row][col];
+    return squares[position.getRow()][position.getCol()];
 }
 
-void Board::setPiece(int row, int col, Piece piece)
+void Board::setPiece(Position &position, Piece piece)
 {
     //Coloca uma peca na posicao passada nos parametros
-    squares[row][col] = piece;
+    squares[position.getRow()][position.getCol()] = piece;
 }
