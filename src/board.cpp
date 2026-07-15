@@ -40,8 +40,7 @@ void Board::initialize()
             squares[0][j] = BBISHOP;
             squares[7][i] = WBISHOP;
             squares[7][j] = WBISHOP;
-        }    
-        else if(i == 3){
+        } else if(i == 3){
             squares[0][i] = BQUEEN;
             squares[0][j] = BKING;
             squares[7][i] = WQUEEN;

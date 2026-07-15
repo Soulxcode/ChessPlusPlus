@@ -1,7 +1,0 @@
-# ninja log v7
-6	50	8054721945006800	C:/Users/Hugo/Desktop/Chess-Engine/build/CMakeFiles/cmake.verify_globs	4aecc0f3c9107192
-72	293	8054721945684980	CMakeFiles/ChessEngine.dir/src/move.cpp.obj	b48bb4058f8b1138
-56	303	8054721945515442	CMakeFiles/ChessEngine.dir/src/game.cpp.obj	946958c1ef8b0ea0
-62	315	8054721945605199	CMakeFiles/ChessEngine.dir/src/main.cpp.obj	f48cc36bad12abc8
-51	678	8054721945455593	CMakeFiles/ChessEngine.dir/src/board.cpp.obj	4c41f360a0f82880
-681	854	8054721951744302	ChessEngine.exe	f98b2d10ac0e1e1f

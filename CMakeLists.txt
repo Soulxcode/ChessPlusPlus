@@ -13,8 +13,10 @@ file(GLOB SOURCES CONFIGURE_DEPENDS
 
 add_executable(ChessEngine ${SOURCES})
 
-if(WIN32)
-    set_target_properties(ChessEngine PROPERTIES
-        LINK_FLAGS "-mconsole"
-    )
-endif()
+find_package(SFML 3 REQUIRED COMPONENTS Graphics Window System)
+
+target_link_libraries(ChessEngine
+    SFML::Graphics
+    SFML::Window
+    SFML::System
+)
