@@ -1,5 +1,6 @@
 #pragma once
 #include "Piece.h"
+#include "Move.h"
 
 class King : public Piece{
     public:
@@ -7,5 +8,5 @@ class King : public Piece{
         King(Color pieceColor) : Piece(pieceColor){}
 
         //Movimentos
-        bool isValidMove(Position fromPosition, Position toPosition) const override;
+        bool isValidMove(const Move &move, const Board &board) const override;
 };

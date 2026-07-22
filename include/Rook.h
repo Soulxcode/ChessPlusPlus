@@ -2,9 +2,10 @@
 #include "Piece.h"
 
 class Rook : public Piece{
-    //Construtor
-    Rook(Color pieceColor) : Piece(pieceColor){}
+    public:
+        //Construtor
+        Rook(Color pieceColor) : Piece(pieceColor){}
 
-    //Movimento
-    bool isValidMove(Position fromPosition, Position toPosition) const override;
+        //Movimento
+        bool isValidMove(const Move &move, const Board &board) const override;
 };

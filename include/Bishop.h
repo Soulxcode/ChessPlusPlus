@@ -2,10 +2,10 @@
 #include "Piece.h"
 
 class Bishop : public Piece{
-    //Construtor
-    Bishop(Color pieceColor) : Piece(pieceColor){}
+    public:
+        //Construtor
+        Bishop(Color pieceColor) : Piece(pieceColor){}
 
-    //Movimento
-    bool isValidMove(Position fromPosition, Position toPosition) const override;
-
+        //Movimento
+        bool isValidMove(const Move &move, const Board &board) const override;
 };

@@ -1,6 +1,5 @@
 #pragma once
 #include "Piece.h"
-#include "Position.h"
 
 class Pawn : public Piece {
     public:
@@ -8,5 +7,5 @@ class Pawn : public Piece {
         Pawn(Color pieceColor) : Piece(pieceColor){}
 
         //Movimento
-        bool isValidMove(Position fromPosition, Position toPosition) const override;
+        bool isValidMove(const Move &move, const Board &board) const override;
 };

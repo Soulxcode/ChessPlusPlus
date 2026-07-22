@@ -1,6 +1,6 @@
 #pragma once
 #include "Color.h"
-#include "Position.h"
+#include "Move.h"
 
 //Todos os tipos das pecas
 class Piece
@@ -10,7 +10,7 @@ class Piece
         virtual ~Piece() = default;
 
         //Verifica se o movimento é válido
-        virtual bool isValidMove(Position fromPosition, Position toPosition) const = 0;
+        virtual bool isValidMove(const Move &move, const Board &board) const = 0;
 
         //Devolve a cor da peça
         Color getColor(){
