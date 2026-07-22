@@ -1,5 +1,13 @@
 #include "Board.h"
+#include "Pawn.h"
+#include "Rook.h"
+#include "Knight.h"
+#include "Bishop.h"
+#include "Queen.h"
+#include "King.h"
 #include <iostream>
+#include <memory>
+
 
 Board::Board()
 {
@@ -9,55 +17,42 @@ Board::Board()
     
 void Board::initialize()
 {
-    //2 loops para percorrer a matriz e dar o valor de empty a todas as posicoes    
-    for(int row = 0; row < 8; row++){
-        for(int col = 0; col < 8; col++){
-                squares[row][col] = EMPTY;
-        }
-    }
-
-    //Poe em posicao os peoes todos
+    //Cada quadrado guarda um apontador inteligente para os peoes
     for(int i = 0; i < 8; i++){
-        squares[1][i] = BPAWN;
-        squares[6][i] = WPAWN;
+        squares[1][i] = std::make_unique<Pawn>(Color::Black);
+        squares[6][i] = std::make_unique<Pawn>(Color::White);
     }
 
-    //Poe em posicao o resto das pecas
+    //Cada quadrado guarda um apontador inteligente para o resto das peças
     int j = 7;
     for(int i = 0; i < 4; i++){
         if(i == 0){
-            squares[0][i] = BROOK;
-            squares[0][j] = BROOK;
-            squares[7][i] = WROOK;
-            squares[7][j] = WROOK;
+            squares[0][i] = std::make_unique<Rook>(Color::Black);
+            squares[0][j] = std::make_unique<Rook>(Color::Black);
+            squares[7][i] = std::make_unique<Rook>(Color::White);
+            squares[7][j] = std::make_unique<Rook>(Color::White);
         } else if (i == 1){
-            squares[0][i] = BKNIGHT;
-            squares[0][j] = BKNIGHT;
-            squares[7][i] = WKNIGHT;
-            squares[7][j] = WKNIGHT;
+            squares[0][i] = std::make_unique<Knight>(Color::Black);
+            squares[0][j] = std::make_unique<Knight>(Color::Black);
+            squares[7][i] = std::make_unique<Knight>(Color::White);
+            squares[7][j] = std::make_unique<Knight>(Color::White);
         } else if (i == 2){
-            squares[0][i] = BBISHOP;
-            squares[0][j] = BBISHOP;
-            squares[7][i] = WBISHOP;
-            squares[7][j] = WBISHOP;
+            squares[0][i] = std::make_unique<Bishop>(Color::Black);
+            squares[0][j] = std::make_unique<Bishop>(Color::Black);
+            squares[7][i] = std::make_unique<Bishop>(Color::White);
+            squares[7][j] = std::make_unique<Bishop>(Color::White);
         } else if(i == 3){
-            squares[0][i] = BQUEEN;
-            squares[0][j] = BKING;
-            squares[7][i] = WQUEEN;
-            squares[7][j] = WKING;
+            squares[0][i] = std::make_unique<Queen>(Color::Black);
+            squares[0][j] = std::make_unique<King>(Color::Black);
+            squares[7][i] = std::make_unique<Queen>(Color::White);
+            squares[7][j] = std::make_unique<King>(Color::White);
         }    
         j--;
    }
 }
 
-Piece Board::getPiece(const Position &position) const
+Piece* Board::getPiece(const Position &position) const
 {
-    //Faz return da peca que está na posicao pedida
-    return squares[position.getRow()][position.getCol()];
-}
-
-void Board::setPiece(Position &position, Piece piece)
-{
-    //Coloca uma peca na posicao passada nos parametros
-    squares[position.getRow()][position.getCol()] = piece;
+    //Faz return do apontador inteligente que está na posicao pedida
+    return squares[position.getRow()][position.getCol()].get();
 }

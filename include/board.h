@@ -1,20 +1,21 @@
 #pragma once
+#include <memory>
 #include "Piece.h"
 #include "Position.h"
 
 class Board {
     public:
-        Board(); //Construtor
-
-        //Metodos para mudarem o estado do board
-        void initialize(); //Metodo que inicializa o board com as posicoes iniciais
+        //Construtor
+        Board();
         
-        Piece getPiece(const Position &position) const; //Vai buscar a peça que está na posicao
-        void setPiece(Position &position, Piece piece); //Muda posicao da peça  
+        //Metodo que inicializa o board com as posicoes iniciais
+        void initialize(); 
+        
+        //Vai buscar a peça que está na posicao
+        Piece* getPiece(const Position &position) const;
     
     private:
         //Cria um board 8x8 com uma matriz
-        //Cada membro é um apontador para uma peça
-        Piece squares[8][8]; 
-
+        //Cada quadrado tem um apontador para a peça a o ocupar ou nullptr se nao tiver nenhuma peça
+        std::unique_ptr<Piece> squares[8][8]; 
 };

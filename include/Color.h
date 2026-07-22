@@ -2,6 +2,6 @@
 
 //Cores possiveis para os jogadores
 enum Color{
-    WHITE,
-    BLACK
+    White,
+    Black
 };
