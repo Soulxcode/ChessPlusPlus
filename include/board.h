@@ -13,6 +13,15 @@ class Board {
         
         //Vai buscar a peça que está na posicao
         Piece* getPiece(const Position &position) const;
+
+        //Move uma peça para outra posiçao
+        bool Board::movePiece(const Position& start, const Position& destination);
+
+        //Verifica se a posição está vazia
+        bool isSquareEmpty(const Position &position) const;
+
+        //Remove peça da posição 
+        bool removePiece(const Position &position);
     
     private:
         //Cria um board 8x8 com uma matriz

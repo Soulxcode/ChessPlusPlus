@@ -53,6 +53,37 @@ void Board::initialize()
 
 Piece* Board::getPiece(const Position &position) const
 {
-    //Faz return do apontador inteligente que está na posicao pedida
+    //Retorna o apontador inteligente que está na posicao pedida
     return squares[position.getRow()][position.getCol()].get();
+}
+
+bool Board::movePiece(const Position& start, const Position& destination)
+{   
+    //Se posição inicial estiver vazia retorna falso
+    if (getPiece(start) == nullptr)
+    { 
+        return false; 
+    }
+    
+    //Usa std::move para transferir a propriedade do objeto
+    squares[destination.getRow()][destination.getCol()] =
+    std::move(squares[start.getRow()][start.getCol()]);
+
+    return true;
+}
+
+bool Board::isSquareEmpty(const Position &position) const
+{
+    //Retorna true se a peça na posição entregue é null
+    return getPiece(position) == nullptr;
+}
+
+bool Board::removePiece(const Position &position)  
+{
+    //Se a posiçao tem uma peça, remove e retorna true
+    if(getPiece(position) != nullptr){
+        squares[position.getRow()][position.getCol()] = nullptr;
+        return true;
+    };
+    return false;
 }
