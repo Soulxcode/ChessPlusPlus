@@ -1,3 +1,0 @@
-C:/Users/IEFP/Desktop/chess_engine/build/CMakeFiles/ChessEngine.dir
-C:/Users/IEFP/Desktop/chess_engine/build/CMakeFiles/edit_cache.dir
-C:/Users/IEFP/Desktop/chess_engine/build/CMakeFiles/rebuild_cache.dir
