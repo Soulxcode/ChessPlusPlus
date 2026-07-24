@@ -57,7 +57,7 @@ Piece* Board::getPiece(const Position &position) const
     return squares[position.getRow()][position.getCol()].get();
 }
 
-bool Board::movePiece(const Position& start, const Position& destination)
+bool Board::movePiece(const Position& start, const Position &destination)
 {   
     //Se posição inicial estiver vazia retorna falso
     if (getPiece(start) == nullptr)
