@@ -11,7 +11,10 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
 
 add_executable(ChessGame ${SOURCES})
 
-target_include_directories(ChessGame PRIVATE include)
+target_include_directories(ChessGame PRIVATE
+    include
+    include/pieces
+)
 
 find_package(SFML 3 REQUIRED COMPONENTS Graphics Window System)
 

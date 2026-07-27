@@ -1,6 +1,8 @@
 #pragma once
-#include "Piece.h"
 #include "MoveType.h"
+#include "Position.h"
+
+class Piece; // forward declaration
 
 //Estrutura que representa o movimento
 struct Move{

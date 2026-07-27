@@ -2,6 +2,8 @@
 #include "Color.h"
 #include "Move.h"
 
+class Board;
+
 //Todos os tipos das pecas
 class Piece
 {
