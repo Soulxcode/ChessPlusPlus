@@ -37,3 +37,7 @@ void Renderer::drawBoard(sf::RenderWindow& window){
         }
     }
 }
+
+void Renderer::drawPieces(sf::RenderWindow& window, const Board &board){
+    
+}
