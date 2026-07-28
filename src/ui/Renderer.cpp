@@ -8,12 +8,12 @@ const int TILE_SIZE = 80;
 Renderer::Renderer()
 {
     //Tenta carregar imagens para os quadrados
-    if (!lightSquareTexture.loadFromFile("assets/png/noShadow/128px/square_brown_light_png_128px.png"))
+    if (!lightSquareTexture.loadFromFile("assets/PNGs/noShadow/128h/square_brown_light_png_128px.png"))
     {
         std::cerr << "Falha ao carregar quadrado branco" << std::endl;
     }
 
-    if (!darkSquareTexture.loadFromFile("assets/png/noShadow/128px/square_brown_dark_png_128px.png"))
+    if (!darkSquareTexture.loadFromFile("assets/PNGs/noShadow/128h/square_brown_dark_png_128px.png"))
     {
         std::cerr << "Falha ao carregar quadrado preto" << std::endl;
     }

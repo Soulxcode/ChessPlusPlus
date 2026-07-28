@@ -4,13 +4,13 @@
 #include "Board.h"
 #include "ui/Renderer.h"
 
-class Game
+class Game 
 {
     public:
         //Construtor
         Game();
 
-        //Metodo que abre a aaplicação
+        //Metodo que abre a aplicação
         void run();
 
     private:
