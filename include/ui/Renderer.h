@@ -17,6 +17,7 @@ class Renderer{
         //Textura peças
         sf::Texture piecesTexture;
 
-        //Textura do board
-        sf::Texture boardTexture;
+        //Texturas do board
+        sf::Texture lightSquareTexture;
+        sf::Texture darkSquareTexture;
 };
