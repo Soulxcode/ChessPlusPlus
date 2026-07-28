@@ -14,6 +14,7 @@ add_executable(ChessGame ${SOURCES})
 target_include_directories(ChessGame PRIVATE
     include
     include/pieces
+    include/ui
 )
 
 find_package(SFML 3 REQUIRED COMPONENTS Graphics Window System)

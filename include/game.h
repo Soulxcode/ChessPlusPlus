@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Board.h"
+#include "ui/Renderer.h"
 
 class Game
 {

@@ -1,11 +1,10 @@
 #pragma once
 #include "Piece.h"
-#include "Position.h"
 
 class Knight : public Piece {
     public:
         //Construtor
-        Knight(Color pieceColor, Position initialPosition);
+        Knight(Color pieceColor) : Piece(pieceColor){}
 
         //Movimento
         bool isValidMove(const Move &move, const Board &board) const override;
