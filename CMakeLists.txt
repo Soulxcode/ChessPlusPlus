@@ -11,6 +11,8 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
 
 add_executable(ChessGame ${SOURCES})
 
+file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
+
 target_include_directories(ChessGame PRIVATE
     include
     include/pieces
