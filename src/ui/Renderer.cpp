@@ -111,80 +111,66 @@ void Renderer::drawPieces(sf::RenderWindow& window, const Board &board){
                 }        
                 case PieceType::Bishop:
                 {
-                    //Usa referencia para ficar com a textura correta da peça sem criar uma copia
+                    
                     const sf::Texture& bishopTexture = (piece->getColor() == Color::White) ? lightBishopTexture : darkBishopTexture;
                     sf::Sprite pieceSprite(bishopTexture);
 
-                    //Fica com o tamanho da textura da peça, faz cast para float da largura e comprimento
                     sf::Vector2u textureSize = bishopTexture.getSize();
                     float offsetX = (TILE_SIZE - static_cast<float>(textureSize.x)) / 2.0f;
                     float offsetY = (TILE_SIZE - static_cast<float>(textureSize.y)) / 2.0f;
 
-                    //Usa largura e o comprimento para centrar a peça no seu quadrado do tabuleiro
                     pieceSprite.setPosition(sf::Vector2f(col * TILE_SIZE + offsetX, row * TILE_SIZE + offsetY));
                     window.draw(pieceSprite);
                     break;
                 }
                 case PieceType::King:
                 {
-                    //Usa referencia para ficar com a textura correta da peça sem criar uma copia
                     const sf::Texture& kingTexture = (piece->getColor() == Color::White) ? lightKingTexture : darkKingTexture;
                     sf::Sprite pieceSprite(kingTexture);
 
-                    //Fica com o tamanho da textura da peça, largura e comprimento
                     sf::Vector2u textureSize = kingTexture.getSize();
                     float offsetX = (TILE_SIZE - static_cast<float>(textureSize.x)) / 2.0f;
                     float offsetY = (TILE_SIZE - static_cast<float>(textureSize.y)) / 2.0f;
 
-                    //Usa largura e o comprimento para centrar a peça no seu quadrado do tabuleiro
                     pieceSprite.setPosition(sf::Vector2f(col * TILE_SIZE + offsetX, row * TILE_SIZE + offsetY));
                     window.draw(pieceSprite);
                     break;
                 }    
                 case PieceType::Knight:
                 {
-                    //Usa referencia para ficar com a textura correta da peça sem criar uma copia
                     const sf::Texture& knightTexture = (piece->getColor() == Color::White) ? lightKnightTexture : darkKnightTexture;
                     sf::Sprite pieceSprite(knightTexture);
 
-                    //Fica com o tamanho da textura da peça, faz cast para float da largura e comprimento
                     sf::Vector2u textureSize = knightTexture.getSize();
                     float offsetX = (TILE_SIZE - static_cast<float>(textureSize.x)) / 2.0f;
                     float offsetY = (TILE_SIZE - static_cast<float>(textureSize.y)) / 2.0f;
 
-                    //Usa largura e o comprimento para centrar a peça no seu quadrado do tabuleiro
                     pieceSprite.setPosition(sf::Vector2f(col * TILE_SIZE + offsetX, row * TILE_SIZE + offsetY));
                     window.draw(pieceSprite);
                     break;
                 }
                 case PieceType::Queen:
                 {
-                    //Usa referencia para ficar com a textura correta da peça sem criar uma copia
                     const sf::Texture& queenTexture = (piece->getColor() == Color::White) ? lightQueenTexture : darkQueenTexture;
                     sf::Sprite pieceSprite(queenTexture);
 
-                    //Fica com o tamanho da textura da peça, faz cast para float da largura e comprimento
                     sf::Vector2u textureSize = queenTexture.getSize();
                     float offsetX = (TILE_SIZE - static_cast<float>(textureSize.x)) / 2.0f;
                     float offsetY = (TILE_SIZE - static_cast<float>(textureSize.y)) / 2.0f;
 
-                    //Usa largura e o comprimento para centrar a peça no seu quadrado do tabuleiro
                     pieceSprite.setPosition(sf::Vector2f(col * TILE_SIZE + offsetX, row * TILE_SIZE + offsetY));
                     window.draw(pieceSprite);
                     break;
                 }            
                 case PieceType::Rook:
                 {
-                    //Usa referencia para ficar com a textura correta da peça sem criar uma copia
                     const sf::Texture& rookTexture = (piece->getColor() == Color::White) ? lightRookTexture : darkRookTexture;
                     sf::Sprite pieceSprite(rookTexture);
 
-                    //Fica com o tamanho da textura da peça, faz cast para float da largura e comprimento
                     sf::Vector2u textureSize = rookTexture.getSize();
                     float offsetX = (TILE_SIZE - static_cast<float>(textureSize.x)) / 2.0f;
                     float offsetY = (TILE_SIZE - static_cast<float>(textureSize.y)) / 2.0f;
-
-                    //Usa largura e o comprimento para centrar a peça no seu quadrado do tabuleiro
+                    
                     pieceSprite.setPosition(sf::Vector2f(col * TILE_SIZE + offsetX, row * TILE_SIZE + offsetY));
                     window.draw(pieceSprite);
                     break;

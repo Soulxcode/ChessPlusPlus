@@ -24,8 +24,12 @@ class Game
         //Metodo para renderizar o jogo
         void render();
 
+        //Faz render de uma janela
         sf::RenderWindow window;
 
+        //Cria um tabuleiro para jogar
         Board board;
+
+        //Criar um renderer para renderizar as imagens
         Renderer renderer;
 };

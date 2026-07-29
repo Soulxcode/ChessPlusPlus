@@ -1,4 +1,4 @@
-#include "ui/Game.h"
+#include "Game.h"
 
 const int width = 1024;
 const int height = 1024;
