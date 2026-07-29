@@ -14,12 +14,8 @@ class Renderer{
         void drawPieces(sf::RenderWindow& window, const Board& board);
 
     private:
-        //Textura peças
-        sf::Texture piecesTexture;
-
         //Texturas do board e peças
-        sf::Texture lightSquareTexture;
-        sf::Texture darkSquareTexture;
+        sf::Texture boardTexture;
         sf::Texture lightBishopTexture;
         sf::Texture darkBishopTexture;
         sf::Texture lightRookTexture;

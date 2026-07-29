@@ -1,7 +1,7 @@
 #include "ui/Game.h"
 
-const int width = 2024;
-const int height = 2024;
+const int width = 1024;
+const int height = 1024;
 
 Game::Game() : window(sf::VideoMode(sf::Vector2u(width, height)), "Chess++"){}
 

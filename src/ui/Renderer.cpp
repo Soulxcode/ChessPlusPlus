@@ -10,66 +10,61 @@ const int TILE_SIZE = 128;
 Renderer::Renderer()
 {
     //Carrega imagens para os quadrados
-    if (!lightSquareTexture.loadFromFile("assets/PNGs/noShadow/128h/square_brown_light_png_128px.png"))
+    if (!boardTexture.loadFromFile("assets/boardsPieces/pieces/bases/blue.png"))
     {
-        std::cerr << "Falha ao carregar quadrado claro" << std::endl;
+        std::cerr << "Falha ao carregar tabuleiro" << std::endl;
     }
-    if (!darkSquareTexture.loadFromFile("assets/PNGs/noShadow/128h/square_brown_dark_png_128px.png"))
-    {
-        std::cerr << "Falha ao carregar quadrado escuro" << std::endl;
-    }
-
     //Carrega imagens para as peças
-    if (!darkBishopTexture.loadFromFile("assets/PNGs/noShadow/128h/b_bishop_png_128px.png"))
+    if (!darkBishopTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/bb.png"))
     {
         std::cerr << "Falha ao carregar bispo preto" << std::endl;
     }
-    if (!lightBishopTexture.loadFromFile("assets/PNGs/noShadow/128h/w_bishop_png_128px.png"))
+    if (!lightBishopTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/wb.png"))
     {
         std::cerr << "Falha ao carregar bispo branco" << std::endl;
     }
 
-    if (!darkKingTexture.loadFromFile("assets/PNGs/noShadow/128h/b_king_png_128px.png"))
+    if (!darkKingTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/bk.png"))
     {
         std::cerr << "Falha ao carregar rei preto" << std::endl;
     }
-    if (!lightKingTexture.loadFromFile("assets/PNGs/noShadow/128h/w_king_png_128px.png"))
+    if (!lightKingTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/wk.png"))
     {
         std::cerr << "Falha ao carregar rei branco" << std::endl;
     }
 
-    if (!darkKnightTexture.loadFromFile("assets/PNGs/noShadow/128h/b_knight_png_128px.png"))
+    if (!darkKnightTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/bn.png"))
     {
         std::cerr << "Falha ao carregar cavalo preto" << std::endl;
     }
-    if (!lightKnightTexture.loadFromFile("assets/PNGs/noShadow/128h/w_knight_png_128px.png"))
+    if (!lightKnightTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/wn.png"))
     {
         std::cerr << "Falha ao carregar cavalo branco" << std::endl;
     }
 
-    if (!darkQueenTexture.loadFromFile("assets/PNGs/noShadow/128h/b_queen_png_128px.png"))
+    if (!darkQueenTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/bq.png"))
     {
         std::cerr << "Falha ao carregar rainha preta" << std::endl;
     }
-    if (!lightQueenTexture.loadFromFile("assets/PNGs/noShadow/128h/w_queen_png_128px.png"))
+    if (!lightQueenTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/wq.png"))
     {
         std::cerr << "Falha ao carregar rainha branca" << std::endl;
     }
 
-    if (!darkPawnTexture.loadFromFile("assets/PNGs/noShadow/128h/b_pawn_png_128px.png"))
+    if (!darkPawnTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/bp.png"))
     {
         std::cerr << "Falha ao carregar peão preto" << std::endl;
     }
-    if (!lightPawnTexture.loadFromFile("assets/PNGs/noShadow/128h/w_pawn_png_128px.png"))
+    if (!lightPawnTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/wp.png"))
     {
         std::cerr << "Falha ao carregar peão branco" << std::endl;
     }
 
-    if (!darkRookTexture.loadFromFile("assets/PNGs/noShadow/128h/b_rook_png_128px.png"))
+    if (!darkRookTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/br.png"))
     {
         std::cerr << "Falha ao carregar torre preta" << std::endl;
     }
-    if (!lightRookTexture.loadFromFile("assets/PNGs/noShadow/128h/w_rook_png_128px.png"))
+    if (!lightRookTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/wr.png"))
     {
         std::cerr << "Falha ao carregar torre branca" << std::endl;
     }
@@ -77,21 +72,9 @@ Renderer::Renderer()
 
 //Metodo que desenha o tabuleiro
 void Renderer::drawBoard(sf::RenderWindow& window){
-    for(int row = 0; row < 8; row++){
-        for(int col = 0; col < 8; col ++){
-
-            //Verifica se é par para saber se é um quadrado branco ou preto
-            bool isLight = (row + col) % 2 == 0;
-            sf::Sprite square(isLight ? lightSquareTexture : darkSquareTexture);
-            
-            //Converte col e row em coordenadas
-            //x - col; y - row
-            square.setPosition(sf::Vector2f(col * TILE_SIZE, row * TILE_SIZE));
-            
-            //Pede á janela para desenhar o quadrado
-            window.draw(square);
-        }
-    }
+        sf::Sprite boardSprite(boardTexture);
+        boardSprite.setPosition(sf::Vector2f(0.f, 0.f));
+        window.draw(boardSprite);
 }
 
 void Renderer::drawPieces(sf::RenderWindow& window, const Board &board){
