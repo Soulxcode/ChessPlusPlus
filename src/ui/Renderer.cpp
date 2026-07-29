@@ -10,7 +10,7 @@ const int TILE_SIZE = 128;
 Renderer::Renderer()
 {
     //Carrega imagens para os quadrados
-    if (!boardTexture.loadFromFile("assets/boardsPieces/pieces/bases/blue.png"))
+    if (!boardTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/blue.png"))
     {
         std::cerr << "Falha ao carregar tabuleiro" << std::endl;
     }

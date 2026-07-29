@@ -1,5 +1,5 @@
 #pragma once
-#include "Color.h"
+#include "enums/Color.h"
 #include "Move.h"
 
 class Board; 

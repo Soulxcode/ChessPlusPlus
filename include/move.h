@@ -1,5 +1,5 @@
 #pragma once
-#include "MoveType.h"
+#include "enums/MoveType.h"
 #include "Position.h"
 
 class Piece; // forward declaration
