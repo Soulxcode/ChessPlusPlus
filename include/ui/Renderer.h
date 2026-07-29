@@ -17,7 +17,20 @@ class Renderer{
         //Textura peças
         sf::Texture piecesTexture;
 
-        //Texturas do board
+        //Texturas do board e peças
         sf::Texture lightSquareTexture;
         sf::Texture darkSquareTexture;
+        sf::Texture lightBishopTexture;
+        sf::Texture darkBishopTexture;
+        sf::Texture lightRookTexture;
+        sf::Texture darkRookTexture;
+        sf::Texture lightPawnTexture;
+        sf::Texture darkPawnTexture;
+        sf::Texture lightQueenTexture;
+        sf::Texture darkQueenTexture;
+        sf::Texture lightKingTexture;
+        sf::Texture darkKingTexture;
+        sf::Texture lightKnightTexture;
+        sf::Texture darkKnightTexture;
+
 };

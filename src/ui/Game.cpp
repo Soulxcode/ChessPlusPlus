@@ -1,6 +1,9 @@
 #include "ui/Game.h"
 
-Game::Game() : window(sf::VideoMode(sf::Vector2u(640, 640)), "Chess++"){}
+const int width = 2024;
+const int height = 2024;
+
+Game::Game() : window(sf::VideoMode(sf::Vector2u(width, height)), "Chess++"){}
 
 void Game::run()
 {
@@ -32,5 +35,6 @@ void Game::render()
 {
     window.clear();
     renderer.drawBoard(window);
+    renderer.drawPieces(window, board);
     window.display();
 }
