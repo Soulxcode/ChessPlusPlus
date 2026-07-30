@@ -24,6 +24,9 @@ class Game
         //Metodo para renderizar o jogo
         void render();
 
+        //Metodo para o click do lado esquerdo do rato
+        void leftClick(sf::Vector2i mousePosition);
+
         //Faz render de uma janela
         sf::RenderWindow window;
 

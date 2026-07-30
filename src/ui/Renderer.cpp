@@ -1,10 +1,8 @@
 #include "ui/Renderer.h"
 #include "Position.h"
 #include "Board.h"
+#include "Constants.h"
 #include <iostream>
-
-//Tamanho de cada quadrado
-const int TILE_SIZE = 128;
 
 //Construtor
 Renderer::Renderer()
@@ -77,6 +75,7 @@ void Renderer::drawBoard(sf::RenderWindow& window){
         window.draw(boardSprite);
 }
 
+//Metodo que desenha as peças no tabuleiro
 void Renderer::drawPieces(sf::RenderWindow& window, const Board &board){
     for(int row = 0; row < 8; row++){
         for (int col = 0; col < 8; col++){

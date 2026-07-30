@@ -11,7 +11,6 @@
 
 Board::Board()
 {
-    //Usa o metodo para construir um board novo
     initialize(); 
 }
     

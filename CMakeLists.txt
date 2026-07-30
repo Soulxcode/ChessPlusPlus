@@ -16,7 +16,6 @@ file(COPY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${CMAKE_BINARY_DIR})
 target_include_directories(ChessGame PRIVATE
     include
     include/pieces
-    include/ui
 )
 
 find_package(SFML 3 REQUIRED COMPONENTS Graphics Window System)
