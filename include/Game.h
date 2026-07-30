@@ -35,4 +35,10 @@ class Game
 
         //Criar um renderer para renderizar as imagens
         Renderer renderer;
+
+        //Bool para verificar se há alguma peça selecionada
+        bool selected = false;
+
+        //Para guardar a posição selecionada
+        Position selectedPosition{0, 0}; 
 };

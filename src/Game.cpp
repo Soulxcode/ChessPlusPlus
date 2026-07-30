@@ -45,14 +45,24 @@ void Game::leftClick(sf::Vector2i mousePosition){
     int row = mousePosition.y / TILE_SIZE;
 
     //Para ter a certeza que o click é dentro to board
-    if (row < 0 || row > 7 || col < 0 || col > 7)
-    {
+    if (row < 0 || row > 7 || col < 0 || col > 7){
         return;
     }
-
+    
     Position clicked(row, col);
+    if(!selected){
+        if(!board.isSquareEmpty(clicked)){
+            
+            //Guarda a posição
+            selectedPosition = clicked;
+            selected = true;
+        }   
+    }
+    else{
+        board.movePiece(selectedPosition, clicked);
+        selected = false;
+    }
 }
-
 
 void Game::update(){
     //TODO: LOGICA DO JOGO

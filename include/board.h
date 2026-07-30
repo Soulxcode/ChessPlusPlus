@@ -15,7 +15,7 @@ class Board {
         Piece* getPiece(const Position &position) const;
 
         //Move uma peça para outra posiçao
-        bool movePiece(const Position &start, const Position& destination);
+        void movePiece(const Position &start, const Position& destination);
 
         //Verifica se a posição está vazia
         bool isSquareEmpty(const Position &position) const;

@@ -1,5 +1,6 @@
 #pragma once
 
+//Classe com a row e a col 
 class Position{
     public:
         Position(int row, int col); //Construtor

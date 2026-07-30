@@ -56,19 +56,11 @@ Piece* Board::getPiece(const Position &position) const
     return squares[position.getRow()][position.getCol()].get();
 }
 
-bool Board::movePiece(const Position& start, const Position &destination)
+void Board::movePiece(const Position& start, const Position &destination)
 {   
-    //Se posição inicial estiver vazia retorna falso
-    if (getPiece(start) == nullptr)
-    { 
-        return false; 
-    }
-    
     //Usa std::move para transferir a propriedade do objeto
     squares[destination.getRow()][destination.getCol()] =
     std::move(squares[start.getRow()][start.getCol()]);
-
-    return true;
 }
 
 bool Board::isSquareEmpty(const Position &position) const
