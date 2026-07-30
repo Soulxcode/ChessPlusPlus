@@ -50,6 +50,7 @@ void Game::leftClick(sf::Vector2i mousePosition){
     }
     
     Position clicked(row, col);
+    
     if(!selected){
         if(!board.isSquareEmpty(clicked)){
             
@@ -59,6 +60,8 @@ void Game::leftClick(sf::Vector2i mousePosition){
         }   
     }
     else{
+        
+        //Move a peça
         board.movePiece(selectedPosition, clicked);
         selected = false;
     }

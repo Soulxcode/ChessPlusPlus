@@ -2,7 +2,8 @@
 #include "enums/MoveType.h"
 #include "Position.h"
 
-class Piece; // forward declaration
+//Para puder usar o apontador para uma peça
+class Piece;
 
 //Estrutura que representa o movimento
 struct Move{

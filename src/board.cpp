@@ -59,7 +59,7 @@ Piece* Board::getPiece(const Position &position) const
 void Board::movePiece(const Position& start, const Position &destination)
 {   
     //Usa std::move para transferir a propriedade do objeto
-    squares[destination.getRow()][destination.getCol()] =
+    squares[destination.getRow()][destination.getCol()] = 
     std::move(squares[start.getRow()][start.getCol()]);
 }
 

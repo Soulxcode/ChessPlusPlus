@@ -68,15 +68,30 @@ Renderer::Renderer()
     }
 }
 
-//Metodo que desenha o tabuleiro
 void Renderer::drawBoard(sf::RenderWindow& window){
         sf::Sprite boardSprite(boardTexture);
         boardSprite.setPosition(sf::Vector2f(0.f, 0.f));
         window.draw(boardSprite);
 }
 
-//Metodo que desenha as peças no tabuleiro
-void Renderer::drawPieces(sf::RenderWindow& window, const Board &board){
+void Renderer::drawCenteredPiece(sf::RenderWindow& window, const sf::Texture& texture, const Position& position){
+
+    //Criar uma sprite com a textura recebida
+    sf::Sprite sprite(texture);
+
+    //Fica com o tamanho da textura da peça, faz cast para float da largura e comprimento
+    sf::Vector2u size = texture.getSize();
+    float offsetX = (TILE_SIZE - static_cast<float>(size.x)) / 2.f;
+    float offsetY = (TILE_SIZE - static_cast<float>(size.y)) / 2.f;
+
+    //Usa largura e o comprimento para centrar a peça no seu quadrado do tabuleiro
+    sprite.setPosition({ position.getCol() * TILE_SIZE + offsetX , position.getRow() * TILE_SIZE + offsetY });
+
+    //Desenha a peça
+    window.draw(sprite);
+}
+
+void Renderer::drawPieces(sf::RenderWindow& window, const Board& board){
     for(int row = 0; row < 8; row++){
         for (int col = 0; col < 8; col++){
             
@@ -91,87 +106,36 @@ void Renderer::drawPieces(sf::RenderWindow& window, const Board &board){
             
             //Verifica o tipo da peça para inserir a textura correta na posição correta
             PieceType type = piece -> getType();
+            
             switch(type){
                 case PieceType::Pawn:
                 {
-                    //Usa referencia para ficar com a textura correta da peça sem criar uma copia
-                    const sf::Texture& pawnTexture = (piece->getColor() == Color::White) ? lightPawnTexture : darkPawnTexture;
-                    sf::Sprite pieceSprite(pawnTexture);
-
-                    //Fica com o tamanho da textura da peça, faz cast para float da largura e comprimento
-                    sf::Vector2u textureSize = pawnTexture.getSize();
-                    float offsetX = (TILE_SIZE - static_cast<float>(textureSize.x)) / 2.0f;
-                    float offsetY = (TILE_SIZE - static_cast<float>(textureSize.y)) / 2.0f;
-
-                    //Usa largura e o comprimento para centrar a peça no seu quadrado do tabuleiro
-                    pieceSprite.setPosition(sf::Vector2f(col * TILE_SIZE + offsetX, row * TILE_SIZE + offsetY));
-                    window.draw(pieceSprite);
+                    drawCenteredPiece(window, piece->getColor() == Color::White ? lightPawnTexture : darkPawnTexture, position);
                     break;
                 }        
                 case PieceType::Bishop:
                 {
-                    
-                    const sf::Texture& bishopTexture = (piece->getColor() == Color::White) ? lightBishopTexture : darkBishopTexture;
-                    sf::Sprite pieceSprite(bishopTexture);
-
-                    sf::Vector2u textureSize = bishopTexture.getSize();
-                    float offsetX = (TILE_SIZE - static_cast<float>(textureSize.x)) / 2.0f;
-                    float offsetY = (TILE_SIZE - static_cast<float>(textureSize.y)) / 2.0f;
-
-                    pieceSprite.setPosition(sf::Vector2f(col * TILE_SIZE + offsetX, row * TILE_SIZE + offsetY));
-                    window.draw(pieceSprite);
+                    drawCenteredPiece(window, piece->getColor() == Color::White ? lightBishopTexture : darkBishopTexture, position);
                     break;
                 }
                 case PieceType::King:
                 {
-                    const sf::Texture& kingTexture = (piece->getColor() == Color::White) ? lightKingTexture : darkKingTexture;
-                    sf::Sprite pieceSprite(kingTexture);
-
-                    sf::Vector2u textureSize = kingTexture.getSize();
-                    float offsetX = (TILE_SIZE - static_cast<float>(textureSize.x)) / 2.0f;
-                    float offsetY = (TILE_SIZE - static_cast<float>(textureSize.y)) / 2.0f;
-
-                    pieceSprite.setPosition(sf::Vector2f(col * TILE_SIZE + offsetX, row * TILE_SIZE + offsetY));
-                    window.draw(pieceSprite);
+                    drawCenteredPiece(window, piece->getColor() == Color::White ? lightKingTexture : darkKingTexture, position);
                     break;
                 }    
                 case PieceType::Knight:
                 {
-                    const sf::Texture& knightTexture = (piece->getColor() == Color::White) ? lightKnightTexture : darkKnightTexture;
-                    sf::Sprite pieceSprite(knightTexture);
-
-                    sf::Vector2u textureSize = knightTexture.getSize();
-                    float offsetX = (TILE_SIZE - static_cast<float>(textureSize.x)) / 2.0f;
-                    float offsetY = (TILE_SIZE - static_cast<float>(textureSize.y)) / 2.0f;
-
-                    pieceSprite.setPosition(sf::Vector2f(col * TILE_SIZE + offsetX, row * TILE_SIZE + offsetY));
-                    window.draw(pieceSprite);
+                    drawCenteredPiece(window, piece->getColor() == Color::White ? lightKnightTexture : darkKnightTexture, position);
                     break;
                 }
                 case PieceType::Queen:
                 {
-                    const sf::Texture& queenTexture = (piece->getColor() == Color::White) ? lightQueenTexture : darkQueenTexture;
-                    sf::Sprite pieceSprite(queenTexture);
-
-                    sf::Vector2u textureSize = queenTexture.getSize();
-                    float offsetX = (TILE_SIZE - static_cast<float>(textureSize.x)) / 2.0f;
-                    float offsetY = (TILE_SIZE - static_cast<float>(textureSize.y)) / 2.0f;
-
-                    pieceSprite.setPosition(sf::Vector2f(col * TILE_SIZE + offsetX, row * TILE_SIZE + offsetY));
-                    window.draw(pieceSprite);
+                    drawCenteredPiece(window, piece->getColor() == Color::White ? lightQueenTexture : darkQueenTexture, position);
                     break;
                 }            
                 case PieceType::Rook:
                 {
-                    const sf::Texture& rookTexture = (piece->getColor() == Color::White) ? lightRookTexture : darkRookTexture;
-                    sf::Sprite pieceSprite(rookTexture);
-
-                    sf::Vector2u textureSize = rookTexture.getSize();
-                    float offsetX = (TILE_SIZE - static_cast<float>(textureSize.x)) / 2.0f;
-                    float offsetY = (TILE_SIZE - static_cast<float>(textureSize.y)) / 2.0f;
-                    
-                    pieceSprite.setPosition(sf::Vector2f(col * TILE_SIZE + offsetX, row * TILE_SIZE + offsetY));
-                    window.draw(pieceSprite);
+                    drawCenteredPiece(window, piece->getColor() == Color::White ? lightRookTexture : darkRookTexture, position);
                     break;
                 }      
             }
