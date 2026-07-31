@@ -12,7 +12,8 @@ bool Rook::isValidMove(const Move &move, const Board &board) const
     int destCol = move.destination.getCol();
 
     //So não for na mesma linha ou coluna, nao se pode mover
-    if(destRow != startRow || destCol != startCol){
+    if (startRow != destRow && startCol != destCol)
+    {
         return false;
     }
     

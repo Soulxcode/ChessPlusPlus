@@ -61,9 +61,23 @@ void Game::leftClick(sf::Vector2i mousePosition){
     }
     else{
         
-        //Move a peça
-        board.movePiece(selectedPosition, clicked);
+        //Fica com um apontador para a peça que se vai mover
+        Piece* selectedPiece = board.getPiece(selectedPosition);
+        
+        //Cria um movimento
+        Move move{ selectedPiece, selectedPosition, clicked };
+
+        //Se existe uma peça no destino, é uma captura
+        if(board.getPiece(clicked) != nullptr){
+            move.moveType = MoveType::Capture;
+        }
+
         selected = false;
+
+        //Se a move é válidae, entao move a peça
+        if(selectedPiece->isValidMove(move, board)){
+            board.movePiece(selectedPosition, clicked);
+        };
     }
 }
 
