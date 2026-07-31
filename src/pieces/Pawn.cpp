@@ -16,6 +16,7 @@ bool Pawn::isValidMove(const Move &move, const Board &board) const
         return false;
     }
 
+    //Se peao for branco
     if(getColor() == Color::White){
         
         //Se ja houve movimento o peao nao se pode mover 2 casas
@@ -23,9 +24,18 @@ bool Pawn::isValidMove(const Move &move, const Board &board) const
         return false;
 
         //Se ainda nao houve movimento pode se mover 2 casas
+        //Verifica se há pecas no caminho
         } else if(!hasMoved && (startRow - 2 == destRow) && startCol == destCol){
-            if(board.getPiece(move.destination) == nullptr){
-                return true;
+            if(board.isSquareEmpty(move.destination)){
+            
+                //Cria a posição do meio (uma casa à frente do início)
+                Position middlePos(startRow - 1, startCol);
+                if(board.isSquareEmpty(middlePos)){
+                    return true;
+                } else {
+                    return false;
+                }
+
             } else {
                 return false;
             }
@@ -33,12 +43,12 @@ bool Pawn::isValidMove(const Move &move, const Board &board) const
 
         //Verifica se existe alguma peça no caminho 
         if(startRow - 1 == destRow && startCol == destCol 
-            && board.getPiece(move.destination) != nullptr){
-                return false;
+            && board.getPiece(move.destination) == nullptr){
+                return true;
             }
 
         //Verifica se a peça que está na diagonal existe e é inimiga
-        if(startCol != destCol){
+        if(destCol == startCol + 1 || destCol == startCol - 1){
             if(board.getPiece(move.destination) != nullptr 
             && board.getPiece(move.destination)->getColor() == Color::Black
             && destRow + 1 == startRow){
@@ -50,11 +60,46 @@ bool Pawn::isValidMove(const Move &move, const Board &board) const
         }
 
     }
+    
+    //Se peao for preto
     if(getColor() == Color::Black){
-        if(hasMoved && (startRow + 1 != destRow)){
-        return false;
+    
+        //Se ja houve movimento o peao nao se pode mover 2 casas
+        if(hasMoved && (startRow + 1 != destRow) && startCol == destCol){
+            return false;
+
+        //Se ainda nao houve movimento pode se mover 2 casas
+        //Verifica se há peças no caminho
+        } else if(!hasMoved && (startRow + 2 == destRow) && startCol == destCol){
+            if(board.isSquareEmpty(move.destination)){
+                
+                //Cria a posição do meio (uma casa à frente do início)
+                Position middlePos(startRow + 1, startCol);
+                if(board.isSquareEmpty(middlePos)){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //Verifica se existe alguma peça no caminho 
+        if(startRow + 1 == destRow && startCol == destCol 
+            && board.getPiece(move.destination) == nullptr){
+                return true;
+            }
+
+        //Verifica se a peça que está na diagonal existe e é inimiga
+        if(destCol == startCol + 1 || destCol == startCol - 1){
+            if(board.getPiece(move.destination) != nullptr 
+            && board.getPiece(move.destination)->getColor() == Color::White
+            && destRow - 1 == startRow){
+                
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
-    return true;
+    return false;
 }
