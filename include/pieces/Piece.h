@@ -21,7 +21,7 @@ class Piece
         virtual PieceType getType() const = 0;
 
         //Devolve a cor da peça
-        Color getColor(){
+        Color getColor() const {
             return color;
         };
     

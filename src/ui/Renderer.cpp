@@ -93,7 +93,7 @@ void Renderer::drawCenteredPiece(sf::RenderWindow& window, const sf::Texture& te
 
 void Renderer::drawPieces(sf::RenderWindow& window, const Board& board){
     for(int row = 0; row < 8; row++){
-        for (int col = 0; col < 8; col++){
+        for(int col = 0; col < 8; col++){
             
             //Fica com a posição e ve que tipo de peça está lá
             Position position(row, col);

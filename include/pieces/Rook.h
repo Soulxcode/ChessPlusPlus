@@ -6,7 +6,7 @@ class Rook : public Piece{
         //Construtor
         Rook(Color pieceColor) : Piece(pieceColor){}
 
-        //Movimento
+        //Movimento da torre
         bool isValidMove(const Move &move, const Board &board) const override;
 
         //Metodo para obter o tipo de peça

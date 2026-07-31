@@ -6,7 +6,7 @@ class Bishop : public Piece{
         //Construtor
         Bishop(Color pieceColor) : Piece(pieceColor){}
 
-        //Movimento
+        //Movimento do bispo
         bool isValidMove(const Move &move, const Board &board) const override;
 
         //Metodo para obter o tipo de peça

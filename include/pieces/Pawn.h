@@ -6,7 +6,7 @@ class Pawn : public Piece {
         //Construtor
         Pawn(Color pieceColor) : Piece(pieceColor){}
 
-        //Movimento
+        //Movimento do peão
         bool isValidMove(const Move &move, const Board &board) const override;
 
         //Metodo para obter o tipo de peça

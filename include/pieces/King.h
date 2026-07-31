@@ -7,7 +7,7 @@ class King : public Piece{
         //Construtor
         King(Color pieceColor) : Piece(pieceColor){}
 
-        //Movimentos
+        //Movimento do rei
         bool isValidMove(const Move &move, const Board &board) const override;
 
         //Metodo para obter o tipo de peça

@@ -6,7 +6,7 @@ class Queen : public Piece{
         //Construtor
         Queen(Color pieceColor) : Piece(pieceColor){}
 
-        //Movimento
+        //Movimento da rainha
         bool isValidMove(const Move &move, const Board &board) const override;
 
         //Metodo para obter o tipo de peça

@@ -6,7 +6,7 @@ class Knight : public Piece {
         //Construtor
         Knight(Color pieceColor) : Piece(pieceColor){}
 
-        //Movimento
+        //Movimento do cavaleiro
         bool isValidMove(const Move &move, const Board &board) const override;
 
         //Metodo para obter o tipo de peça
