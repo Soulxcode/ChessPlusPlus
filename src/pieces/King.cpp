@@ -47,22 +47,52 @@ bool King::isValidMove(const Move &move, const Board &board) const
         Piece* rightPiece = board.getPiece(right);
 
         //Se exister um rei ou peao inimigo, movimento ilegal
-        if(leftPiece != nullptr && 
-            leftPiece->getColor() == Color::Black &&
-            (leftPiece->getType() == PieceType::King ||
-            leftPiece->getType() == PieceType::Pawn )){
+        if(leftPiece != nullptr && leftPiece->getColor() == Color::Black 
+        && (leftPiece->getType() == PieceType::King 
+        || leftPiece->getType() == PieceType::Pawn )){
             
             return false;
         }
 
-        if(rightPiece != nullptr &&
-            rightPiece->getColor() == Color::Black &&
-            (rightPiece->getType() == PieceType::Pawn ||
-            rightPiece->getType() == PieceType::King)){
+        if(rightPiece != nullptr && rightPiece->getColor() == Color::Black 
+        && (rightPiece->getType() == PieceType::Pawn 
+        || rightPiece->getType() == PieceType::King)){
             
             return false;
         }
 
+        //Loop para verificar diagonais
+        for(int i = 1; i < 8; i++){
+            Position diagonalTopLeft(destRow - i, destCol - i);
+            Position diagonalTopRight(destRow - i, destCol + i);
+            Position diagonalBotLeft(destRow + i, destCol - i);
+            Position diagonalBotRight(destRow + i, destCol + i);
+
+            Piece* topLeftPiece = board.getPiece(diagonalTopLeft);
+            Piece* topRightPiece = board.getPiece(diagonalTopRight);
+            Piece* botLeftPiece = board.getPiece(diagonalBotLeft);
+            Piece* botRightPiece = board.getPiece(diagonalBotRight);
+
+            if(topLeftPiece != nullptr || topRightPiece != nullptr 
+            || botLeftPiece != nullptr || botRightPiece != nullptr){
+                if(topLeftPiece->getColor() == Color::Black 
+                || topRightPiece->getColor() == Color::Black
+                || botLeftPiece->getColor() == Color::Black
+                || botRightPiece->getColor() == Color::Black){
+                    if((topLeftPiece->getType() == PieceType::Bishop 
+                    || topLeftPiece->getType() == PieceType::Queen)
+                    || (topRightPiece->getType() == PieceType::Bishop
+                    || topRightPiece->getType() == PieceType::Queen)
+                    || (botLeftPiece->getType() == PieceType::Bishop
+                    || botLeftPiece->getType() == PieceType::Queen)
+                    || (botRightPiece->getType() == PieceType::Bishop
+                    || botRightPiece->getType() == PieceType::Queen)){
+                        
+                        return false;
+                    }
+                }
+            }
+        };
     }
     
     return true;
