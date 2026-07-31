@@ -11,9 +11,8 @@ bool Rook::isValidMove(const Move &move, const Board &board) const
     int destRow = move.destination.getRow();
     int destCol = move.destination.getCol();
 
-    //So não for na mesma linha ou coluna, nao se pode mover
-    if (startRow != destRow && startCol != destCol)
-    {
+    //Nao se pode mover na linha e na coluna ao mesmo tempo
+    if(startRow != destRow && startCol != destCol){
         return false;
     }
     
@@ -27,11 +26,11 @@ bool Rook::isValidMove(const Move &move, const Board &board) const
     int rowStep;
 
     //Se a posição do destino é maior que o começo entao anda para baixo
-    if (destRow > startRow){
+    if(destRow > startRow){
         rowStep = 1;
     }
     //Se o começo for maior anda para cima
-    else if (destRow < startRow){
+    else if(destRow < startRow){
         rowStep = -1;
     }
     //Se for igual, fica na mesma linha
@@ -43,11 +42,11 @@ bool Rook::isValidMove(const Move &move, const Board &board) const
     int colStep;
 
     //Destino maior, anda para a direita
-    if (destCol > startCol){
+    if(destCol > startCol){
         colStep = 1;
     }
     //Destino menor, anda para a esquerda
-    else if (destCol < startCol){
+    else if(destCol < startCol){
         colStep = -1;
     }
     //Igual, fica na mesma coluna
