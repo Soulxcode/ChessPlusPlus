@@ -77,6 +77,7 @@ void Game::leftClick(sf::Vector2i mousePosition){
         //Se a move é válidae, entao move a peça
         if(selectedPiece->isValidMove(move, board)){
             board.movePiece(selectedPosition, clicked);
+            selectedPiece->setHasMoved();
         };
     }
 }

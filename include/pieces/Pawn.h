@@ -11,8 +11,4 @@ class Pawn : public Piece {
 
         //Metodo para obter o tipo de peça
         PieceType getType() const override { return PieceType::Pawn; }
-
-    private:
-        //Controla se o peao ja se moveu    
-        bool hasMoved = false;
 };

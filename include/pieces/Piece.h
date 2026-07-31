@@ -24,10 +24,19 @@ class Piece
         Color getColor() const {
             return color;
         };
+
+        //Metodo para assinalar que a peça já se moveu
+        void setHasMoved() { hasMoved = true; }
+        
+        //Metodo para saber se a peça já se moveu
+        bool getHasMoved() const { return hasMoved; }
     
     protected:
         //Construtor  
         Piece(Color pieceColor) : color(pieceColor){}
+        
+        //Controla se a peça já se moveu
+        bool hasMoved = false;
 
     private:
         //Cor da peça
