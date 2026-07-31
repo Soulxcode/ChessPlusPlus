@@ -16,8 +16,7 @@ bool Rook::isValidMove(const Move &move, const Board &board) const
         return false;
     }
     
-    //Se tanto a linha como a coluna forem iguais do começo e do destino
-    //entao a peça não se mexeu, movimento ilegal
+    //Movimento ilegal, destino igual ao começo
     if(destRow == startRow && destCol == startCol){
         return false;
     }

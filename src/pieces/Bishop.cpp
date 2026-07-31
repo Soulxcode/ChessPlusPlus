@@ -62,7 +62,7 @@ bool Bishop::isValidMove(const Move &move, const Board &board) const
     int currentCol = startCol + colStep;
 
     //Enquanto não estiver no destino
-    while (currentRow != destRow && currentCol != destCol){
+    while (currentRow != destRow || currentCol != destCol){
         
         //Cria uma posição da coluna e linha que estamos neste momento
         Position currentPos(currentRow, currentCol);
