@@ -2,6 +2,7 @@
 #include <memory>
 #include "Piece.h"
 #include "Position.h"
+#include "enums/DirectionType.h"
 
 class Board {
     public:
@@ -22,6 +23,12 @@ class Board {
 
         //Remove peça da posição 
         bool removePiece(const Position &position);
+
+        //Verifica se o quadrado está a ser atingido por alguem
+        bool isSquareAttacked(const Position &destination, Color enemyColor) const;
+
+        //Verifica se há peças inimigas em alguma direção
+        bool checkDirection(const Position &destination, int rowStep, int colStep, Color enemyColor, DirectionType directionType) const;
     
     private:
         //Cria um board 8x8 com uma matriz

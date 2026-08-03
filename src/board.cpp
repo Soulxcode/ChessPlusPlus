@@ -9,8 +9,8 @@
 #include <memory>
 
 
-Board::Board()
-{
+Board::Board(){
+    
     initialize(); 
 }
     
@@ -50,31 +50,76 @@ void Board::initialize()
    }
 }
 
-Piece* Board::getPiece(const Position &position) const
-{
+Piece* Board::getPiece(const Position &position) const{
+
     //Retorna o apontador inteligente que está na posicao pedida
     return squares[position.getRow()][position.getCol()].get();
 }
 
-void Board::movePiece(const Position& start, const Position &destination)
-{   
+void Board::movePiece(const Position& start, const Position &destination){   
+
     //Usa std::move para transferir a propriedade do objeto
     squares[destination.getRow()][destination.getCol()] = 
     std::move(squares[start.getRow()][start.getCol()]);
 }
 
-bool Board::isSquareEmpty(const Position &position) const
-{
+bool Board::isSquareEmpty(const Position &position) const{
+
     //Retorna true se a peça na posição entregue é null
     return getPiece(position) == nullptr;
 }
 
-bool Board::removePiece(const Position &position)  
-{
+bool Board::removePiece(const Position &position){
+
     //Se a posiçao tem uma peça, remove e retorna true
     if(getPiece(position) != nullptr){
         squares[position.getRow()][position.getCol()] = nullptr;
         return true;
     };
     return false;
+}
+
+bool Board::checkDirection(const Position &destination, int rowStep, int colStep, Color enemyColor, DirectionType directionType) const {
+
+    //Recebe as posiçoes a beira da posiçao destino
+    int row = destination.getRow() + rowStep;
+    int col = destination.getCol() + colStep;
+
+    //Enquanto que a posição for dentro do board
+    while(row >= 0 && row < 8 && col >= 0 && col < 8){
+
+        //Ve se existe alguma peça naquela 
+        Piece* piece = getPiece(Position(row, col));
+
+        //Se nao existe passa á proxima posição
+        if(piece == nullptr){
+            row += rowStep;
+            col += colStep;
+            continue;
+        }
+
+        //Se a peça é inimiga verificar se existe perigo
+        if(piece->getColor() == enemyColor){
+            if(DirectionType::Diagonal){
+                if(piece->getType() == PieceType::Bishop || piece->getType() == PieceType::Queen){
+                    return true;
+                }
+            }
+            if(DirectionType::Straight){
+                if(piece->getType() == PieceType::Rook || piece->getType() == PieceType::Queen){
+                    return true;
+                }
+            }
+        }
+        //Encontrou peça mas nao tem perigo
+        return false;
+    }
+    //Nao existia peças
+    return false;
+}
+
+bool Board::isSquareAttacked(const Position &position, Color enemyColor) const{
+
+    return false;
+
 }

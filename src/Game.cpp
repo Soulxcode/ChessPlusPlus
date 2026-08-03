@@ -86,8 +86,7 @@ void Game::update(){
     //TODO: LOGICA DO JOGO
 }
 
-void Game::render()
-{
+void Game::render(){
     window.clear();
     renderer.drawBoard(window);
     renderer.drawPieces(window, board);
