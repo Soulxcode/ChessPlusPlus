@@ -51,6 +51,11 @@ void Board::initialize()
 }
 
 Piece* Board::getPiece(const Position &position) const{
+    
+    //Se a posiçao está fora do board entao é null
+    if (position.getRow() < 0 || position.getRow() >= 8 || position.getCol() < 0 || position.getCol() >= 8){
+        return nullptr;
+    }
 
     //Retorna o apontador inteligente que está na posicao pedida
     return squares[position.getRow()][position.getCol()].get();
@@ -100,18 +105,18 @@ bool Board::checkDirection(const Position &destination, int rowStep, int colStep
 
         //Se a peça é inimiga verificar se existe perigo
         if(piece->getColor() == enemyColor){
-            if(DirectionType::Diagonal){
+            if(directionType  == DirectionType::Diagonal){
                 if(piece->getType() == PieceType::Bishop || piece->getType() == PieceType::Queen){
                     return true;
                 }
             }
-            if(DirectionType::Straight){
+            if(directionType == DirectionType::Straight){
                 if(piece->getType() == PieceType::Rook || piece->getType() == PieceType::Queen){
                     return true;
                 }
             }
         }
-        //Encontrou peça mas nao tem perigo
+        //Encontrou peça que nao apresenta perigo
         return false;
     }
     //Nao existia peças
@@ -119,7 +124,52 @@ bool Board::checkDirection(const Position &destination, int rowStep, int colStep
 }
 
 bool Board::isSquareAttacked(const Position &position, Color enemyColor) const{
+    
+    //Verifica as diagonais por rainhas e bispos
+    if(checkDirection(position, -1, -1, enemyColor, DirectionType::Diagonal))
+        return true;
 
+    if(checkDirection(position, -1, 1, enemyColor, DirectionType::Diagonal))
+        return true;
+
+    if(checkDirection(position, 1, -1, enemyColor, DirectionType::Diagonal))
+        return true;
+
+    if(checkDirection(position, 1, 1, enemyColor, DirectionType::Diagonal))
+        return true;
+
+    //Verifica vertical e horizontal por rainhas e torres
+    if(checkDirection(position, -1, 0, enemyColor, DirectionType::Straight))
+        return true;
+
+    if(checkDirection(position, 1, 0, enemyColor, DirectionType::Straight))
+        return true;    
+
+    if(checkDirection(position, 0, -1, enemyColor, DirectionType::Straight))
+        return true;
+
+    if(checkDirection(position, 0, 1, enemyColor, DirectionType::Straight))
+        return true;    
+    
+    //Verifica se ha peoes a atacar
+    int pawnRow = (enemyColor == Color::White) ? position.getRow() + 1 : position.getRow() - 1;
+
+    //Vai buscar as posiçoes dos peoes
+    Position leftPawn(pawnRow, position.getCol() - 1);
+    Position rightPawn(pawnRow, position.getCol() + 1);
+
+    //Verifica se existe peao na diagonal esquerda
+    Piece* piece = getPiece(leftPawn);
+    if(piece != nullptr && piece->getColor() == enemyColor && piece->getType() == PieceType::Pawn){
+        return true;
+    }
+
+    //Verifica se existe peao na diagonal direita
+    piece = getPiece(rightPawn);
+    if(piece != nullptr && piece->getColor() == enemyColor && piece->getType() == PieceType::Pawn){
+        return true;
+    }
+    
     return false;
 
 }

@@ -28,71 +28,18 @@ bool King::isValidMove(const Move &move, const Board &board) const
         return false;
     }
 
-    //Checks para verificar que o rei nao se mete em check
-    //Rei branco
-    if(getColor() == Color::White){
+    //Não pode capturar uma peça da mesma cor
+    Piece* destinationPiece = board.getPiece(move.destination);
+    if(destinationPiece != nullptr && destinationPiece->getColor() == getColor()){
+        return false;
+    }
 
-        //Movimento ilegal se a peça for da mesma cor 
-        if(board.getPiece(move.destination) != nullptr 
-        && board.getPiece(move.destination)->getColor() == Color::White ){
-            return false;
-        }
+    //Determina a cor inimiga
+    Color enemyColor = (getColor() == Color::White) ? Color::Black : Color::White;
 
-        //Guarda as posicoes das diagonais
-        Position left(destRow - 1, destCol - 1);
-        Position right(destRow - 1, destCol + 1);
-
-        //Guarda o apontador para as peças
-        Piece* leftPiece = board.getPiece(left);
-        Piece* rightPiece = board.getPiece(right);
-
-        //Se exister um rei ou peao inimigo, movimento ilegal
-        if(leftPiece != nullptr && leftPiece->getColor() == Color::Black 
-        && (leftPiece->getType() == PieceType::King 
-        || leftPiece->getType() == PieceType::Pawn )){
-            
-            return false;
-        }
-
-        if(rightPiece != nullptr && rightPiece->getColor() == Color::Black 
-        && (rightPiece->getType() == PieceType::Pawn 
-        || rightPiece->getType() == PieceType::King)){
-            
-            return false;
-        }
-
-        //Loop para verificar diagonais
-        for(int i = 1; i < 8; i++){
-            Position diagonalTopLeft(destRow - i, destCol - i);
-            Position diagonalTopRight(destRow - i, destCol + i);
-            Position diagonalBotLeft(destRow + i, destCol - i);
-            Position diagonalBotRight(destRow + i, destCol + i);
-
-            Piece* topLeftPiece = board.getPiece(diagonalTopLeft);
-            Piece* topRightPiece = board.getPiece(diagonalTopRight);
-            Piece* botLeftPiece = board.getPiece(diagonalBotLeft);
-            Piece* botRightPiece = board.getPiece(diagonalBotRight);
-
-            if(topLeftPiece != nullptr || topRightPiece != nullptr 
-            || botLeftPiece != nullptr || botRightPiece != nullptr){
-                if(topLeftPiece->getColor() == Color::Black 
-                || topRightPiece->getColor() == Color::Black
-                || botLeftPiece->getColor() == Color::Black
-                || botRightPiece->getColor() == Color::Black){
-                    if((topLeftPiece->getType() == PieceType::Bishop 
-                    || topLeftPiece->getType() == PieceType::Queen)
-                    || (topRightPiece->getType() == PieceType::Bishop
-                    || topRightPiece->getType() == PieceType::Queen)
-                    || (botLeftPiece->getType() == PieceType::Bishop
-                    || botLeftPiece->getType() == PieceType::Queen)
-                    || (botRightPiece->getType() == PieceType::Bishop
-                    || botRightPiece->getType() == PieceType::Queen)){
-                        
-                        return false;
-                    }
-                }
-            }
-        };
+    //O rei não pode mover-se para uma casa atacada
+    if(board.isSquareAttacked(move.destination, enemyColor)){
+        return false;
     }
     
     return true;
