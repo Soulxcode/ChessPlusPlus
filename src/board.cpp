@@ -103,6 +103,13 @@ bool Board::checkDirection(const Position &destination, int rowStep, int colStep
             continue;
         }
 
+        //Ignora a si mesmo quando verifica a posiçao
+        if(piece->getType() == PieceType::King && piece->getColor() != enemyColor){
+            row += rowStep;
+            col += colStep;
+            continue;
+        }   
+
         //Se a peça é inimiga verificar se existe perigo
         if(piece->getColor() == enemyColor){
             if(directionType  == DirectionType::Diagonal){

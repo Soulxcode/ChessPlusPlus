@@ -37,6 +37,9 @@ bool King::isValidMove(const Move &move, const Board &board) const
     //Determina a cor inimiga
     Color enemyColor = (getColor() == Color::White) ? Color::Black : Color::White;
 
+    //Guarda o tipo da peça
+    PieceType pieceType = getType();
+
     //O rei não pode mover-se para uma casa atacada
     if(board.isSquareAttacked(move.destination, enemyColor)){
         return false;
