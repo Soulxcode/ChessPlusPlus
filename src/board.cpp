@@ -177,6 +177,17 @@ bool Board::isSquareAttacked(const Position &position, Color enemyColor) const{
         return true;
     }
     
+    //Verifica se há cavalos a atacar 
+    int knightsPositions[8][2] = { 
+        {-2, -1}, {-2, 1}, {-1, -2}, {-1, 2},
+        {1, -2}, {1, 2}, {2, -1}, {2, 1}
+    };
+
+    //Faz loop por todas as possiveis posiçoes do cavaleiro
+    for (auto& kPosition : knightsPositions){
+        int row = position.getRow() + kPosition[0];
+        int col = position.getCol() + kPosition[1]; 
+    }
     return false;
 
 }
