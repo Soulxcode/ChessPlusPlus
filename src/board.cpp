@@ -177,7 +177,8 @@ bool Board::isSquareAttacked(const Position &position, Color enemyColor) const{
         return true;
     }
     
-    //Verifica se há cavalos a atacar 
+    //Cavaleiros
+    //Lista de posicoes validas de cavaleiros
     int knightsPositions[8][2] = { 
         {-2, -1}, {-2, 1}, {-1, -2}, {-1, 2},
         {1, -2}, {1, 2}, {2, -1}, {2, 1}
@@ -186,8 +187,43 @@ bool Board::isSquareAttacked(const Position &position, Color enemyColor) const{
     //Faz loop por todas as possiveis posiçoes do cavaleiro
     for (auto& kPosition : knightsPositions){
         int row = position.getRow() + kPosition[0];
-        int col = position.getCol() + kPosition[1]; 
+        int col = position.getCol() + kPosition[1];
+        
+        //Verifica se está dentro do board
+        if(row >= 0 && row < 8 && col >= 0 && row < 8){
+            Position knightPosition(row, col);
+            Piece* piece = getPiece(knightPosition);
+
+            //Verifica se existe um cavaleiro inimigo na posicao guardada
+            if(piece != nullptr && piece->getType() == PieceType::Knight && piece->getColor() == enemyColor ){
+                return true;
+            }
+        } 
     }
+
+    //Verificar se ha um rei adjacente
+    for(int row = -1; row < 2; row++){
+        for(int col = -1; col < 2 ; col++){
+            if(row == 0 && col == 0){
+                continue;
+            }
+            
+            int testRow = position.getRow() + row;
+            int testCol = position.getCol() + col;
+
+            //Verifica se está dentro do board
+            if(testRow >= 0 && testRow < 8 && testCol >= 0 && testCol < 8){
+
+                Position adjacent(testRow, testCol);
+                Piece* piece = getPiece(adjacent);
+
+                if(piece != nullptr && piece->getType() == PieceType::King && piece->getColor() == enemyColor){
+                    return true;
+                }
+            }
+        }
+    }
+
     return false;
 
 }
