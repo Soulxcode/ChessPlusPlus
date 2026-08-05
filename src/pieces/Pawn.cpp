@@ -67,12 +67,13 @@ bool Pawn::isValidMove(const Move &move, const Board &board) const
             return false;
 
         //Se ainda nao houve movimento pode se mover 2 casas
-        //Verifica se há peças no caminho
         } else if(!hasMoved && (startRow + 2 == destRow) && startCol == destCol){
             if(board.isSquareEmpty(move.destination)){
                 
                 //Cria a posição do meio (uma casa à frente do início)
                 Position middlePos(startRow + DOWN, startCol);
+
+                //Verifica se há peças no caminho
                 if(board.isSquareEmpty(middlePos)){
                     return true;
                 }
