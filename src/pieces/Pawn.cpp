@@ -51,7 +51,7 @@ bool Pawn::isValidMove(const Move &move, const Board &board) const
         if(destCol == startCol + RIGHT || destCol == startCol + LEFT){
             if(board.getPiece(move.destination) != nullptr 
             && board.getPiece(move.destination)->getColor() == Color::Black
-            && destRow + UP == startRow){
+            && destRow == UP + startRow){
                 return true;
             } else {
                 return false;

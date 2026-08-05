@@ -1,9 +1,6 @@
 #include "Game.h"
 #include "Constants.h"
 
-const int width = 1024;
-const int height = 1024;
-
 Game::Game() : window(sf::VideoMode(sf::Vector2u(width, height)), "Chess++"){}
 
 void Game::run()
@@ -41,8 +38,9 @@ void Game::processEvents(){
 void Game::leftClick(sf::Vector2i mousePosition){
     
     //Divide a posiçao do rato pelo tamanho do quadrado para obter a coluna e linha correta
-    int col = mousePosition.x / TILE_SIZE;
-    int row = mousePosition.y / TILE_SIZE;
+    sf::Vector2f worldPos = window.mapPixelToCoords(mousePosition);
+    int col = worldPos.x / TILE_SIZE;
+    int row = worldPos.y / TILE_SIZE;
 
     //Para ter a certeza que o click é dentro to board
     if (row < 0 || row > 7 || col < 0 || col > 7){
@@ -71,7 +69,7 @@ void Game::leftClick(sf::Vector2i mousePosition){
             selected = false;
             return;
         }
-        
+
         //Cria um movimento
         Move move{ selectedPiece, selectedPosition, clicked };
 

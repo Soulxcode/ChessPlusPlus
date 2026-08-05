@@ -3,6 +3,10 @@
 //Tamanho de cada quadrado
 const int TILE_SIZE = 128;
 
+//Tamanho da janela do jogo
+const int width = 1024;
+const int height = 1024;
+
 //Constantes para perceber melhor a direcao
 const int UP = -1;
 const int DOWN = 1;
