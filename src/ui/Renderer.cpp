@@ -10,61 +10,61 @@ Renderer::Renderer()
     //Carrega imagens para os quadrados
     if (!boardTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/blue.png"))
     {
-        std::cerr << "Falha ao carregar tabuleiro" << std::endl;
+        std::cout << "Falha ao carregar tabuleiro" << std::endl;
     }
     //Carrega imagens para as peças
     if (!darkBishopTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/bb.png"))
     {
-        std::cerr << "Falha ao carregar bispo preto" << std::endl;
+        std::cout << "Falha ao carregar bispo preto" << std::endl;
     }
     if (!lightBishopTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/wb.png"))
     {
-        std::cerr << "Falha ao carregar bispo branco" << std::endl;
+        std::cout << "Falha ao carregar bispo branco" << std::endl;
     }
 
     if (!darkKingTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/bk.png"))
     {
-        std::cerr << "Falha ao carregar rei preto" << std::endl;
+        std::cout << "Falha ao carregar rei preto" << std::endl;
     }
     if (!lightKingTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/wk.png"))
     {
-        std::cerr << "Falha ao carregar rei branco" << std::endl;
+        std::cout << "Falha ao carregar rei branco" << std::endl;
     }
 
     if (!darkKnightTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/bn.png"))
     {
-        std::cerr << "Falha ao carregar cavalo preto" << std::endl;
+        std::cout << "Falha ao carregar cavalo preto" << std::endl;
     }
     if (!lightKnightTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/wn.png"))
     {
-        std::cerr << "Falha ao carregar cavalo branco" << std::endl;
+        std::cout << "Falha ao carregar cavalo branco" << std::endl;
     }
 
     if (!darkQueenTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/bq.png"))
     {
-        std::cerr << "Falha ao carregar rainha preta" << std::endl;
+        std::cout << "Falha ao carregar rainha preta" << std::endl;
     }
     if (!lightQueenTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/wq.png"))
     {
-        std::cerr << "Falha ao carregar rainha branca" << std::endl;
+        std::cout << "Falha ao carregar rainha branca" << std::endl;
     }
 
     if (!darkPawnTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/bp.png"))
     {
-        std::cerr << "Falha ao carregar peão preto" << std::endl;
+        std::cout << "Falha ao carregar peão preto" << std::endl;
     }
     if (!lightPawnTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/wp.png"))
     {
-        std::cerr << "Falha ao carregar peão branco" << std::endl;
+        std::cout << "Falha ao carregar peão branco" << std::endl;
     }
 
     if (!darkRookTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/br.png"))
     {
-        std::cerr << "Falha ao carregar torre preta" << std::endl;
+        std::cout << "Falha ao carregar torre preta" << std::endl;
     }
     if (!lightRookTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/wr.png"))
     {
-        std::cerr << "Falha ao carregar torre branca" << std::endl;
+        std::cout << "Falha ao carregar torre branca" << std::endl;
     }
 }
 

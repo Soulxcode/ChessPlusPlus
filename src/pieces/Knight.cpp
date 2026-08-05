@@ -11,6 +11,10 @@ bool Knight::isValidMove(const Move &move, const Board &board) const
     int destRow = move.destination.getRow();
     int destCol = move.destination.getCol();
 
+    //A diferenca para procurar um movimento legal
+    int diffRow = startRow - destRow;   
+    int diffCol = startCol - destCol;
+
     //Lista de movimentos validas de cavaleiros
     int knightsPositions[8][2] = { 
         {-2, -1}, {-2, 1}, {-1, -2}, {-1, 2},
@@ -19,10 +23,6 @@ bool Knight::isValidMove(const Move &move, const Board &board) const
 
     //Faz um loop nas posicoes para encontrar uma posicao legal
     for (auto& kPosition : knightsPositions){
-        
-        //A diferenca para procurar um movimento legal
-        int diffRow = startRow - destRow;   
-        int diffCol = startCol - destCol;
         
         //Procura um movimento válido 
         if(diffRow == kPosition[0] && diffCol == kPosition[1]){

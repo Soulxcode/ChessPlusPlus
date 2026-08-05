@@ -27,6 +27,9 @@ class Game
         //Metodo para o click do lado esquerdo do rato
         void leftClick(sf::Vector2i mousePosition);
 
+        //Metodo que altera o turno
+        void switchTurn();
+
         //Faz render de uma janela
         sf::RenderWindow window;
 
@@ -40,5 +43,8 @@ class Game
         bool selected = false;
 
         //Para guardar a posição selecionada
-        Position selectedPosition{0, 0}; 
+        Position selectedPosition{0, 0};
+        
+        //Turno inicial é sempre branco
+        Color currentTurn = Color::White;
 };
