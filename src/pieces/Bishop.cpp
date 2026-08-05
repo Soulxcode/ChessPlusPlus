@@ -31,11 +31,11 @@ bool Bishop::isValidMove(const Move &move, const Board &board) const
     
     //Se a posição do destino é maior que o começo entao anda para baixo
     if(destRow > startRow){
-        rowStep = BAIXO;
+        rowStep = DOWN;
     }
     //Se o começo for maior anda para cima
     else if(destRow < startRow){
-        rowStep = CIMA;
+        rowStep = UP;
     }
 
     //Para onde vai andar na coluna
@@ -43,11 +43,11 @@ bool Bishop::isValidMove(const Move &move, const Board &board) const
 
     //Destino maior, anda para a direita
     if(destCol > startCol){
-        colStep = DIREITA;
+        colStep = RIGHT;
     }
     //Destino menor, anda para a esquerda
     else if(destCol < startCol){
-        colStep = ESQUERDA;
+        colStep = LEFT;
     }
 
     //Soma pela a primeira vez para começar a verificar se esta no destino

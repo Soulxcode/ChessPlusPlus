@@ -18,12 +18,12 @@ bool King::isValidMove(const Move &move, const Board &board) const
     }
 
     //A linha deve ser igual, +1 ou -1
-    if (destRow != startRow && destRow != startRow + BAIXO && destRow != startRow - CIMA) {
+    if (destRow != startRow && destRow != startRow + DOWN && destRow != startRow + UP) {
         return false;
     }
 
     //A coluna deve ser igual, +1 ou -1
-    if (destCol != startCol && destCol != startCol + DIREITA && destCol != startCol - ESQUERDA) {
+    if (destCol != startCol && destCol != startCol + RIGHT && destCol != startCol + LEFT) {
         return false;
     }
 

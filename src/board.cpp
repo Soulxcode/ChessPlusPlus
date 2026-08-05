@@ -5,6 +5,7 @@
 #include "Bishop.h"
 #include "Queen.h"
 #include "King.h"
+#include "Constants.h"
 #include <iostream>
 #include <memory>
 
@@ -76,11 +77,11 @@ bool Board::isSquareEmpty(const Position &position) const{
 
 bool Board::removePiece(const Position &position){
 
-    //Se a posiçao tem uma peça, remove e retorna true
+    //Se a posiçao tem uma peça, remove
     if(getPiece(position) != nullptr){
         squares[position.getRow()][position.getCol()] = nullptr;
         return true;
-    };
+    }
     return false;
 }
 
@@ -133,45 +134,45 @@ bool Board::checkDirection(const Position &destination, int rowStep, int colStep
 bool Board::isSquareAttacked(const Position &position, Color enemyColor) const{
     
     //Verifica as diagonais por rainhas e bispos
-    if(checkDirection(position, -1, -1, enemyColor, DirectionType::Diagonal))
+    if(checkDirection(position, UP, LEFT, enemyColor, DirectionType::Diagonal))
         return true;
 
-    if(checkDirection(position, -1, 1, enemyColor, DirectionType::Diagonal))
+    if(checkDirection(position, UP, RIGHT, enemyColor, DirectionType::Diagonal))
         return true;
 
-    if(checkDirection(position, 1, -1, enemyColor, DirectionType::Diagonal))
+    if(checkDirection(position, DOWN, LEFT, enemyColor, DirectionType::Diagonal))
         return true;
 
-    if(checkDirection(position, 1, 1, enemyColor, DirectionType::Diagonal))
+    if(checkDirection(position, DOWN, RIGHT, enemyColor, DirectionType::Diagonal))
         return true;
 
     //Verifica vertical e horizontal por rainhas e torres
-    if(checkDirection(position, -1, 0, enemyColor, DirectionType::Straight))
+    if(checkDirection(position, UP, 0, enemyColor, DirectionType::Straight))
         return true;
 
-    if(checkDirection(position, 1, 0, enemyColor, DirectionType::Straight))
+    if(checkDirection(position, DOWN, 0, enemyColor, DirectionType::Straight))
         return true;    
 
-    if(checkDirection(position, 0, -1, enemyColor, DirectionType::Straight))
+    if(checkDirection(position, 0, LEFT, enemyColor, DirectionType::Straight))
         return true;
 
-    if(checkDirection(position, 0, 1, enemyColor, DirectionType::Straight))
+    if(checkDirection(position, 0, RIGHT, enemyColor, DirectionType::Straight))
         return true;    
     
     //Verifica se ha peoes a atacar
-    int pawnRow = (enemyColor == Color::White) ? position.getRow() + 1 : position.getRow() - 1;
+    int pawnRow = (enemyColor == Color::White) ? position.getRow() + DOWN : position.getRow() + UP;
 
     //Vai buscar as posiçoes dos peoes
-    Position leftPawn(pawnRow, position.getCol() - 1);
-    Position rightPawn(pawnRow, position.getCol() + 1);
+    Position leftPawn(pawnRow, position.getCol() + LEFT);
+    Position rightPawn(pawnRow, position.getCol() + RIGHT);
 
-    //Verifica se existe peao na diagonal esquerda
+    //Verifica se existe peao na diagonal LEFT
     Piece* piece = getPiece(leftPawn);
     if(piece != nullptr && piece->getColor() == enemyColor && piece->getType() == PieceType::Pawn){
         return true;
     }
 
-    //Verifica se existe peao na diagonal direita
+    //Verifica se existe peao na diagonal RIGHT
     piece = getPiece(rightPawn);
     if(piece != nullptr && piece->getColor() == enemyColor && piece->getType() == PieceType::Pawn){
         return true;
@@ -190,7 +191,7 @@ bool Board::isSquareAttacked(const Position &position, Color enemyColor) const{
         int col = position.getCol() + kPosition[1];
         
         //Verifica se está dentro do board
-        if(row >= 0 && row < 8 && col >= 0 && row < 8){
+        if(row >= 0 && row < 8 && col >= 0 && col < 8){
             Position knightPosition(row, col);
             Piece* piece = getPiece(knightPosition);
 
@@ -207,7 +208,7 @@ bool Board::isSquareAttacked(const Position &position, Color enemyColor) const{
             if(row == 0 && col == 0){
                 continue;
             }
-            
+
             int testRow = position.getRow() + row;
             int testCol = position.getCol() + col;
 
