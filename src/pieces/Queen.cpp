@@ -2,6 +2,12 @@
 
 bool Queen::isValidMove(const Move &move, const Board &board) const
 {
-    // TODO: actual king move logic
+    //Guarda a linha e a coluna iniciais
+    int startRow = move.start.getRow();
+    int startCol = move.start.getCol();
+
+    //Guarda a linha e a coluna de destino
+    int destRow = move.destination.getRow();
+    int destCol = move.destination.getCol();
     return false;
 }

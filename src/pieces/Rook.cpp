@@ -1,5 +1,6 @@
 #include "Rook.h"
 #include "Board.h"
+#include "Constants.h"
 
 bool Rook::isValidMove(const Move &move, const Board &board) const
 {   
@@ -22,35 +23,27 @@ bool Rook::isValidMove(const Move &move, const Board &board) const
     }
 
     //Para onde vai andar na linha
-    int rowStep;
+    int rowStep = 0;
 
     //Se a posição do destino é maior que o começo entao anda para baixo
     if(destRow > startRow){
-        rowStep = 1;
+        rowStep = BAIXO;
     }
     //Se o começo for maior anda para cima
     else if(destRow < startRow){
-        rowStep = -1;
-    }
-    //Se for igual, fica na mesma linha
-    else{
-        rowStep = 0;
+        rowStep = CIMA;
     }
 
     //Para onde vai andar na coluna
-    int colStep;
+    int colStep = 0;
 
     //Destino maior, anda para a direita
     if(destCol > startCol){
-        colStep = 1;
+        colStep = DIREITA;
     }
     //Destino menor, anda para a esquerda
     else if(destCol < startCol){
-        colStep = -1;
-    }
-    //Igual, fica na mesma coluna
-    else{
-        colStep = 0;
+        colStep = ESQUERDA;
     }
 
     //Soma pela a primeira vez para começar a verificar se esta no destino

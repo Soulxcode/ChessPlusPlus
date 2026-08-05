@@ -1,5 +1,6 @@
 #include "King.h"
 #include "Board.h"
+#include "Constants.h"
 
 bool King::isValidMove(const Move &move, const Board &board) const
 {
@@ -17,14 +18,12 @@ bool King::isValidMove(const Move &move, const Board &board) const
     }
 
     //A linha deve ser igual, +1 ou -1
-    if (destRow != startRow && destRow != startRow + 1 
-        && destRow != startRow - 1) {
+    if (destRow != startRow && destRow != startRow + BAIXO && destRow != startRow - CIMA) {
         return false;
     }
 
     //A coluna deve ser igual, +1 ou -1
-    if (destCol != startCol && destCol != startCol + 1 
-        && destCol != startCol - 1) {
+    if (destCol != startCol && destCol != startCol + DIREITA && destCol != startCol - ESQUERDA) {
         return false;
     }
 
