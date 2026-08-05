@@ -12,7 +12,7 @@ bool Rook::isValidMove(const Move &move, const Board &board) const
     int destRow = move.destination.getRow();
     int destCol = move.destination.getCol();
 
-    //Verifica se vai para a posicao atual
+    //Nao se pode mover na linha e na coluna ao mesmo tempo
     if(startRow != destRow && startCol != destCol){
         return false;
     }

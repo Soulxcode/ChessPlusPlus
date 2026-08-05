@@ -16,7 +16,7 @@ bool Bishop::isValidMove(const Move &move, const Board &board) const
     int rowDiff = startRow - destRow;
     int colDiff = startCol - destCol;
 
-    //A diferença de linha tem de ser igual a diferença da coluna, negativa ou positiva
+    //A diferenca de linha tem de ser igual a diferença da coluna, negativa ou positiva
     if (rowDiff != colDiff && rowDiff != -colDiff){
         return false;
     }

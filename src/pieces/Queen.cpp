@@ -17,7 +17,16 @@ bool Queen::isValidMove(const Move &move, const Board &board) const
         return false;
     }
     
-     //Para onde vai andar na linha
+    //Calcular a diferença para verificar diagonais válidas
+    int rowDiff = startRow - destRow;
+    int colDiff = startCol - destCol;
+
+    //A rainha só pode mover na horizontal, vertical ou diagonal
+    if (rowDiff != 0 && colDiff != 0 && rowDiff != colDiff && rowDiff != -colDiff){
+        return false;
+    }
+
+    //Para onde vai andar na linha
     int rowStep = 0;
 
     //Se a posição do destino é maior que o começo entao anda para baixo
@@ -66,10 +75,10 @@ bool Queen::isValidMove(const Move &move, const Board &board) const
     //Cria um apontador para a peça no destino
     Piece* destPiece = board.getPiece(move.destination);
 
-    //Se a peça nao é null e a cor é igual a rainha pode ser usada
+    //Se a peça nao é null e a cor é igual entao move ilegal
     if (destPiece != nullptr && destPiece->getColor() == getColor()){
         return false; 
     }
 
-    return false;
+    return true;
 }
