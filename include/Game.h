@@ -18,9 +18,6 @@ class Game
         //Metodo para processar eventos
         void processEvents();
 
-        //Metodo para atualizar a screen
-        void update();
-
         //Metodo para renderizar o jogo
         void render();
 

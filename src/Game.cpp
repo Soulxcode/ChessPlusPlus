@@ -7,7 +7,6 @@ void Game::run()
 {
     while (window.isOpen()){
         processEvents();
-        update();
         render();
     }
 }
@@ -102,10 +101,6 @@ void Game::leftClick(sf::Vector2i mousePosition){
             }
         };
     }
-}
-
-void Game::update(){
-    //TODO: LOGICA DO JOGO
 }
 
 void Game::render(){
