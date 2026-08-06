@@ -81,9 +81,26 @@ void Game::leftClick(sf::Vector2i mousePosition){
 
         //Move a peca se o movimento é legal e muda o turno
         if(selectedPiece->isValidMove(move, board)){
-            board.movePiece(selectedPosition, clicked);
-            selectedPiece->setHasMoved();
-            switchTurn();
+
+            Color enemyColor = (currentTurn == Color::White) ? Color::Black : Color::White;
+            
+            //Simula o movimento e procura o rei
+            std::unique_ptr<Piece> captured = board.movePiece(selectedPosition, clicked);
+            Position kingPos = board.findKing(currentTurn);
+            
+            //Verifica se na nova posicao o rei fica em check
+            bool isKingInCheck = board.isSquareAttacked(kingPos, enemyColor);
+
+            //Jogada mata proprio rei por isso reverte movimento
+            if(isKingInCheck){
+                board.undoMove(selectedPosition, clicked, std::move(captured));
+
+            //Movimento legal se rei nao esta em check
+            } else {
+                board.movePiece(selectedPosition, clicked);
+                selectedPiece->setHasMoved();
+                switchTurn();
+            }
         };
     }
 }

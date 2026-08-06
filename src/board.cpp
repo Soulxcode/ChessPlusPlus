@@ -263,6 +263,11 @@ Position Board::findKing(Color color) const{
     return Position(-1, -1);
 }
 
-void Board::undoMove(const Position &start, const Position &destination, std::unique_ptr<Piece> capturedPiece){
+void Board::undoMove(const Position &oldPosition, const Position &newPosition, std::unique_ptr<Piece> capturedPiece){
     
+    //Move a peca para a antiga posicao
+    squares[oldPosition.getRow()][oldPosition.getCol()] = std::move(squares[newPosition.getRow()][newPosition.getCol()]);
+
+    //Restaura a peca capturada ou nullptr 
+    squares[newPosition.getRow()][newPosition.getCol()] = std::move(capturedPiece);
 }

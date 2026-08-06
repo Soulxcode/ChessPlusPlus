@@ -45,6 +45,6 @@ class Game
         //Para guardar a posição selecionada
         Position selectedPosition{0, 0};
         
-        //Turno inicial é sempre branco
+        //Controla o turno atual, o primeiro turno é sempre branco
         Color currentTurn = Color::White;
 };

@@ -25,13 +25,13 @@ class Board {
         bool removePiece(const Position &position);
 
         //Verifica se o quadrado está a ser atingido por alguem
-        bool isSquareAttacked(const Position &destination, Color enemyColor) const;
+        bool isSquareAttacked(const Position &position, Color enemyColor) const;
 
         //Verifica se há peças inimigas em alguma direção
         bool checkDirection(const Position &destination, int rowStep, int colStep, Color enemyColor, DirectionType directionType) const;
         
         //Reverte ultima jogada
-        void undoMove(const Position &start, const Position &destination, std::unique_ptr<Piece> capturedPiece);
+        void undoMove(const Position &oldPosition, const Position &newPosition, std::unique_ptr<Piece> capturedPiece);
 
         //Encontra a posicao do rei
         Position findKing(Color color) const;
