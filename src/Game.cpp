@@ -18,7 +18,6 @@ void Game::processEvents(){
     while (const std::optional event = window.pollEvent()){
         
         //Verifica se o evento é fechar a janela do jogo
-        //Se sim, fecha a janela
         if (event->is<sf::Event::Closed>()){
             window.close();
         }
@@ -38,9 +37,9 @@ void Game::processEvents(){
 void Game::leftClick(sf::Vector2i mousePosition){
     
     //Divide a posiçao do rato pelo tamanho do quadrado para obter a coluna e linha correta
-    sf::Vector2f worldPos = window.mapPixelToCoords(mousePosition);
-    int col = worldPos.x / TILE_SIZE;
-    int row = worldPos.y / TILE_SIZE;
+    sf::Vector2f viewPos = window.mapPixelToCoords(mousePosition);
+    int col = viewPos.x / TILE_SIZE;
+    int row = viewPos.y / TILE_SIZE;
 
     //Para ter a certeza que o click é dentro to board
     if (row < 0 || row > 7 || col < 0 || col > 7){
@@ -57,7 +56,7 @@ void Game::leftClick(sf::Vector2i mousePosition){
         if(piece != nullptr && piece->getColor() == currentTurn){
             selectedPosition = clicked;
             selected = true;
-    }
+        }
     }
     else{
 

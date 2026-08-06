@@ -62,11 +62,21 @@ Piece* Board::getPiece(const Position &position) const{
     return squares[position.getRow()][position.getCol()].get();
 }
 
-void Board::movePiece(const Position& start, const Position &destination){   
+std::unique_ptr<Piece> Board::movePiece(const Position& start, const Position &destination){   
+
+    //Nada para mover
+    if(getPiece(start) == nullptr){
+        return nullptr;
+    }
+
+    //Guarda a peca que vai ser capturada
+    std::unique_ptr<Piece> captured = std::move(squares[destination.getRow()][destination.getCol()]);
 
     //Usa std::move para transferir a propriedade do objeto
     squares[destination.getRow()][destination.getCol()] = 
     std::move(squares[start.getRow()][start.getCol()]);
+    
+    return captured;
 }
 
 bool Board::isSquareEmpty(const Position &position) const{
@@ -227,4 +237,32 @@ bool Board::isSquareAttacked(const Position &position, Color enemyColor) const{
 
     return false;
 
+}
+
+Position Board::findKing(Color color) const{
+    
+    for(int row = 0; row < 8; row++){
+        for(int col = 0; col < 8; col++){
+            
+            //Fica com a posicao e com a peca correspondentes 
+            Position position(row, col);
+            Piece* piece = getPiece(position);
+            
+            //Verifica se a peca e o rei procurado
+            if(piece != nullptr){
+                if(piece->getType() == PieceType::King && piece->getColor() == color){
+                    return position;
+                }
+            }
+             
+        }
+    }
+    
+    //Se por alguma razao nao encontrar o rei no tabuleiro(wtf?)
+    //Retorna uma posicao fora do tabuleiro
+    return Position(-1, -1);
+}
+
+void Board::undoMove(const Position &start, const Position &destination, std::unique_ptr<Piece> capturedPiece){
+    
 }

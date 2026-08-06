@@ -15,8 +15,8 @@ class Board {
         //Vai buscar a peça que está na posicao
         Piece* getPiece(const Position &position) const;
 
-        //Move uma peça para outra posiçao
-        void movePiece(const Position &start, const Position& destination);
+        //Move uma peça para outra posiçao, devolve a peca capturada para reverter o movimento se preciso
+        std::unique_ptr<Piece> movePiece(const Position &start, const Position &destination);
 
         //Verifica se a posição está vazia
         bool isSquareEmpty(const Position &position) const;
@@ -29,9 +29,15 @@ class Board {
 
         //Verifica se há peças inimigas em alguma direção
         bool checkDirection(const Position &destination, int rowStep, int colStep, Color enemyColor, DirectionType directionType) const;
+        
+        //Reverte ultima jogada
+        void undoMove(const Position &start, const Position &destination, std::unique_ptr<Piece> capturedPiece);
+
+        //Encontra a posicao do rei
+        Position findKing(Color color) const;
     
     private:
         //Cria um board 8x8 com uma matriz
-        //Cada quadrado tem um apontador para a peça a o ocupar ou nullptr se nao tiver nenhuma peça
+        //Cada quadrado tem um apontador para a peca ou nullptr se nenhuma peca
         std::unique_ptr<Piece> squares[8][8]; 
 };

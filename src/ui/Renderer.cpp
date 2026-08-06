@@ -21,7 +21,6 @@ Renderer::Renderer()
     {
         std::cout << "Falha ao carregar bispo branco" << std::endl;
     }
-
     if (!darkKingTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/bk.png"))
     {
         std::cout << "Falha ao carregar rei preto" << std::endl;
@@ -30,7 +29,6 @@ Renderer::Renderer()
     {
         std::cout << "Falha ao carregar rei branco" << std::endl;
     }
-
     if (!darkKnightTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/bn.png"))
     {
         std::cout << "Falha ao carregar cavalo preto" << std::endl;
@@ -39,7 +37,6 @@ Renderer::Renderer()
     {
         std::cout << "Falha ao carregar cavalo branco" << std::endl;
     }
-
     if (!darkQueenTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/bq.png"))
     {
         std::cout << "Falha ao carregar rainha preta" << std::endl;
@@ -48,7 +45,6 @@ Renderer::Renderer()
     {
         std::cout << "Falha ao carregar rainha branca" << std::endl;
     }
-
     if (!darkPawnTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/bp.png"))
     {
         std::cout << "Falha ao carregar peão preto" << std::endl;
@@ -57,7 +53,6 @@ Renderer::Renderer()
     {
         std::cout << "Falha ao carregar peão branco" << std::endl;
     }
-
     if (!darkRookTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/br.png"))
     {
         std::cout << "Falha ao carregar torre preta" << std::endl;
@@ -69,9 +64,11 @@ Renderer::Renderer()
 }
 
 void Renderer::drawBoard(sf::RenderWindow& window){
-        sf::Sprite boardSprite(boardTexture);
-        boardSprite.setPosition(sf::Vector2f(0.f, 0.f));
-        window.draw(boardSprite);
+        
+    //Desenha o board no meio do ecra
+    sf::Sprite boardSprite(boardTexture);
+    boardSprite.setPosition(sf::Vector2f(0.0f, 0.0f));
+    window.draw(boardSprite);
 }
 
 void Renderer::drawCenteredPiece(sf::RenderWindow& window, const sf::Texture& texture, const Position& position){
@@ -81,8 +78,8 @@ void Renderer::drawCenteredPiece(sf::RenderWindow& window, const sf::Texture& te
 
     //Fica com o tamanho da textura da peça, faz cast para float da largura e comprimento
     sf::Vector2u size = texture.getSize();
-    float offsetX = (TILE_SIZE - static_cast<float>(size.x)) / 2.f;
-    float offsetY = (TILE_SIZE - static_cast<float>(size.y)) / 2.f;
+    float offsetX = (TILE_SIZE - static_cast<float>(size.x)) / 2.0f;
+    float offsetY = (TILE_SIZE - static_cast<float>(size.y)) / 2.0f;
 
     //Usa largura e o comprimento para centrar a peça no seu quadrado do tabuleiro
     sprite.setPosition({ position.getCol() * TILE_SIZE + offsetX , position.getRow() * TILE_SIZE + offsetY });
