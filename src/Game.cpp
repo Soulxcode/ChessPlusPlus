@@ -48,14 +48,14 @@ void Game::leftClick(sf::Vector2i mousePosition){
     
     Position clicked(row, col);
     
-    if(!selected){
+    if(!isSelected){
         
         Piece* piece = board.getPiece(clicked);
 
         //Se a cor da peca corresponde ao turno e nao é null fica com a posicao
         if(piece != nullptr && piece->getColor() == currentTurn){
             selectedPosition = clicked;
-            selected = true;
+            isSelected = true;
         }
     }
     else{
@@ -65,7 +65,7 @@ void Game::leftClick(sf::Vector2i mousePosition){
 
         //Se a peca selecionada ficar nula por alguma razao
         if(selectedPiece == nullptr){
-            selected = false;
+            isSelected = false;
             return;
         }
 
@@ -77,7 +77,7 @@ void Game::leftClick(sf::Vector2i mousePosition){
             move.moveType = MoveType::Capture;
         }
 
-        selected = false;
+        isSelected = false;
 
         //Move a peca se o movimento é legal e muda o turno
         if(selectedPiece->isValidMove(move, board)){
@@ -97,7 +97,6 @@ void Game::leftClick(sf::Vector2i mousePosition){
 
             //Movimento legal se rei nao esta em check
             } else {
-                board.movePiece(selectedPosition, clicked);
                 selectedPiece->setHasMoved();
                 switchTurn();
             }
@@ -112,6 +111,7 @@ void Game::update(){
 void Game::render(){
     window.clear();
     renderer.drawBoard(window);
+    renderer.drawHighlight(window, selectedPosition, isSelected);
     renderer.drawPieces(window, board);
     window.display();
 }

@@ -16,8 +16,14 @@ class Renderer{
         //Metodo que desenha as peças 
         void drawPieces(sf::RenderWindow& window, const Board& board);
 
+        //Metodo que desenha quadrado de erro
+        void drawError(sf::RenderWindow& window, const Position& position);
+
+        //Metodo que desenha highlight para peca escolhida
+        void drawHighlight(sf::RenderWindow& window, const Position& position, bool isActive);
+
     private:
-        //Texturas do board e peças
+        //Texturas
         sf::Texture boardTexture;
         sf::Texture lightBishopTexture;
         sf::Texture darkBishopTexture;
@@ -31,5 +37,7 @@ class Renderer{
         sf::Texture darkKingTexture;
         sf::Texture lightKnightTexture;
         sf::Texture darkKnightTexture;
+        sf::Texture errorSquare;
+        sf::Texture highlightTexture;
 
 };

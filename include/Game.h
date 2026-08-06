@@ -40,7 +40,7 @@ class Game
         Renderer renderer;
 
         //Bool para verificar se há alguma peça selecionada
-        bool selected = false;
+        bool isSelected = false;
 
         //Para guardar a posição selecionada
         Position selectedPosition{0, 0};

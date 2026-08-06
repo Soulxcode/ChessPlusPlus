@@ -61,6 +61,14 @@ Renderer::Renderer()
     {
         std::cout << "Falha ao carregar torre branca" << std::endl;
     }
+    if (!errorSquare.loadFromFile("assets/boardsPieces/pieces/pieces-png/redSquare.png"))
+    {
+        std::cout << "Falha ao carregar imagem de  erro" << std::endl;
+    }
+    if (!highlightTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/greenSquare.png"))
+    {
+    std::cerr << "Falha ao carregar imagem highlight" << std::endl;
+    }
 }
 
 void Renderer::drawBoard(sf::RenderWindow& window){
@@ -138,5 +146,18 @@ void Renderer::drawPieces(sf::RenderWindow& window, const Board& board){
             }
         }
     }
+}
+
+void Renderer::drawHighlight(sf::RenderWindow& window, const Position& position, bool isActive){
+    
+    //Se nao esta ativo nada para desenhar
+    if(!isActive){
+        return;
+    }
+
+    //Se ativo, desenha o highlight
+    sf::Sprite highlight(highlightTexture);
+    highlight.setPosition(sf::Vector2f(position.getCol() * TILE_SIZE, position.getRow() * TILE_SIZE));
+    window.draw(highlight);
 }
 
