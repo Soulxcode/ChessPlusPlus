@@ -19,8 +19,11 @@ class Renderer{
         //Metodo que desenha quadrado de erro
         void drawError(sf::RenderWindow& window, const Position& position);
 
-        //Metodo que desenha highlight para peca escolhida
+        //Metodo que desenha highlight para peça escolhida
         void drawHighlight(sf::RenderWindow& window, const Position& position, bool isActive);
+
+        //Metodo que desenha highlights das moves e capturas válidas 
+        void drawMoveHints(sf::RenderWindow& window, const std::vector<Position>& validMoves, const Board& board);
 
     private:
         //Texturas
@@ -39,5 +42,7 @@ class Renderer{
         sf::Texture darkKnightTexture;
         sf::Texture errorSquare;
         sf::Texture highlightTexture;
+        sf::Texture moveTexture;
+        sf::Texture captureTexture;
 
 };

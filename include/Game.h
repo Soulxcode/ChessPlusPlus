@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Board.h"
 #include "ui/Renderer.h"
+#include "Position.h"
 
 class Game 
 {
@@ -44,4 +45,7 @@ class Game
         
         //Controla o turno atual, o primeiro turno é sempre branco
         Color currentTurn = Color::White;
+
+        //Metodo que guarda num vetor os movimentos legais
+        std::vector<Position> getValidMoves(Piece* piece, Position position);
 };

@@ -78,28 +78,13 @@ void Game::leftClick(sf::Vector2i mousePosition){
 
         isSelected = false;
 
-        //Move a peca se o movimento é legal e muda o turno
-        if(selectedPiece->isValidMove(move, board)){
-
-            Color enemyColor = (currentTurn == Color::White) ? Color::Black : Color::White;
-            
-            //Simula o movimento e procura o rei
-            std::unique_ptr<Piece> captured = board.movePiece(selectedPosition, clicked);
-            Position kingPos = board.findKing(currentTurn);
-            
-            //Verifica se na nova posicao o rei fica em check
-            bool isKingInCheck = board.isSquareAttacked(kingPos, enemyColor);
-
-            //Jogada mata proprio rei por isso reverte movimento
-            if(isKingInCheck){
-                board.undoMove(selectedPosition, clicked, std::move(captured));
-
-            //Movimento legal se rei nao esta em check
-            } else {
-                selectedPiece->setHasMoved();
-                switchTurn();
-            }
-        };
+        //Move a peça se o movimento é totalmente legal
+        if (board.isMoveLegal(move, currentTurn))
+        {
+            board.movePiece(selectedPosition, clicked);
+            selectedPiece->setHasMoved();
+            switchTurn();
+        }
     }
 }
 
@@ -107,6 +92,14 @@ void Game::render(){
     window.clear();
     renderer.drawBoard(window);
     renderer.drawHighlight(window, selectedPosition, isSelected);
+    
+    //Se existe uma peça selecionada, desenha as ajudas no movimento
+    if (isSelected)
+    {
+        Piece* selectedPiece = board.getPiece(selectedPosition);
+        std::vector<Position> validMoves = getValidMoves(selectedPiece, selectedPosition);
+        renderer.drawMoveHints(window, validMoves, board);
+    }
     renderer.drawPieces(window, board);
     window.display();
 }
@@ -117,4 +110,28 @@ void Game::switchTurn(){
     } else{
         currentTurn = Color::White;
     }
+}
+
+std::vector<Position> Game::getValidMoves(Piece* piece, Position from)
+{
+    std::vector<Position> moves;
+
+    for (int row = 0; row < 8; row++)
+    {
+        for (int col = 0; col < 8; col++)
+        {
+            //Cria uma posicao teste
+            Position test(row, col);
+
+            //Cria um movimento para testar
+            Move move{piece, from, test};
+
+            if (board.isMoveLegal(move, piece->getColor()))
+            {
+                moves.push_back(test);
+            }
+        }
+    }
+
+    return moves;
 }

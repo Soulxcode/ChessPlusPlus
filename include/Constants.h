@@ -1,13 +1,13 @@
 #pragma once
 
-//Tamanho de cada quadrado
+//Tamanho de cada quadrado em pixeis
 const int TILE_SIZE = 128;
 
-//Tamanho da janela do jogo
+//Tamanho da janela do jogo em pixeis
 const int width = 1024;
 const int height = 1024;
 
-//Constantes para perceber melhor a direcao
+//Para não ter numeros magicos
 const int UP = -1;
 const int DOWN = 1;
 const int RIGHT = 1;

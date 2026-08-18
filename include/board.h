@@ -35,6 +35,9 @@ class Board {
 
         //Encontra a posicao do rei
         Position findKing(Color color) const;
+
+        //Verifica se o movimento é legal
+        bool isMoveLegal(const Move& move, Color movingColor);
     
     private:
         //Cria um board 8x8 com uma matriz

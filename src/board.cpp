@@ -271,3 +271,28 @@ void Board::undoMove(const Position &oldPosition, const Position &newPosition, s
     //Restaura a peca capturada ou nullptr 
     squares[newPosition.getRow()][newPosition.getCol()] = std::move(capturedPiece);
 }
+
+bool Board::isMoveLegal(const Move& move, Color movingColor)
+{
+    //Guarda a peça que se vai movimentar
+    Piece* piece = getPiece(move.start);
+
+    //Verifica se a peça existe e se o movimento é válido
+    if (piece == nullptr || !piece->isValidMove(move, *this))
+    {
+        return false;
+    }
+
+    //Guarda a cor inimiga
+    Color enemyColor = (movingColor == Color::White) ? Color::Black : Color::White;
+
+    //Guarda a peça capturada
+    std::unique_ptr<Piece> captured = movePiece(move.start, move.destination);
+
+    //Encontra a posição do rei aliado e verifica se ele fica em check no movimento
+    Position kingPos = findKing(movingColor);
+    bool leavesKingInCheck = isSquareAttacked(kingPos, enemyColor);
+    undoMove(move.start, move.destination, std::move(captured));
+
+    return !leavesKingInCheck;
+}

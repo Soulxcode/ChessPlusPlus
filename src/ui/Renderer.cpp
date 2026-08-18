@@ -63,11 +63,19 @@ Renderer::Renderer()
     }
     if (!errorSquare.loadFromFile("assets/boardsPieces/pieces/pieces-png/redSquare.png"))
     {
-        std::cout << "Falha ao carregar imagem de  erro" << std::endl;
+        std::cout << "Falha ao carregar imagem de erro" << std::endl;
     }
     if (!highlightTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/greenSquare.png"))
     {
-    std::cerr << "Falha ao carregar imagem highlight" << std::endl;
+        std::cout << "Falha ao carregar imagem highlight" << std::endl;
+    }
+    if (!moveTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/move_dot.png"))
+    {
+        std::cout << "Falha ao carregar imagem do move" << std::endl;
+    }
+    if (!captureTexture.loadFromFile("assets/boardsPieces/pieces/pieces-png/capture_ring.png"))
+    {
+        std::cout << "Falha ao carregar imagem de captura" << std::endl;
     }
 }
 
@@ -161,3 +169,16 @@ void Renderer::drawHighlight(sf::RenderWindow& window, const Position& position,
     window.draw(highlight);
 }
 
+void Renderer::drawMoveHints(sf::RenderWindow& window, const std::vector<Position>& validMoves, const Board& board)
+{
+    for (const Position& pos : validMoves)
+    {
+        //Verifica se é uma captura
+        bool isCapture = board.getPiece(pos) != nullptr;
+        
+        //Desenha a sprite dependendo se é captura ou movimento
+        sf::Sprite hint(isCapture ? captureTexture : moveTexture);
+        hint.setPosition(sf::Vector2f(pos.getCol() * TILE_SIZE, pos.getRow() * TILE_SIZE));
+        window.draw(hint);
+    }
+}
