@@ -286,13 +286,16 @@ bool Board::isMoveLegal(const Move& move, Color movingColor)
     //Guarda a cor inimiga
     Color enemyColor = (movingColor == Color::White) ? Color::Black : Color::White;
 
-    //Guarda a peça capturada
+    //Guarda a peça capturada e simula um movimento
     std::unique_ptr<Piece> captured = movePiece(move.start, move.destination);
 
     //Encontra a posição do rei aliado e verifica se ele fica em check no movimento
     Position kingPos = findKing(movingColor);
     bool leavesKingInCheck = isSquareAttacked(kingPos, enemyColor);
+
+    //Desfaz o movimento que foi simulado
     undoMove(move.start, move.destination, std::move(captured));
 
+    //Retorna true se nao deixa o rei em check
     return !leavesKingInCheck;
 }
