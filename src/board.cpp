@@ -296,6 +296,6 @@ bool Board::isMoveLegal(const Move& move, Color movingColor)
     //Desfaz o movimento que foi simulado
     undoMove(move.start, move.destination, std::move(captured));
 
-    //Retorna true se nao deixa o rei em check
+    //Retorna true se o king nao esta em check
     return !leavesKingInCheck;
 }

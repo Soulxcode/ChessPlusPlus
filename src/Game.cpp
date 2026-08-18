@@ -112,8 +112,7 @@ void Game::switchTurn(){
     }
 }
 
-std::vector<Position> Game::getValidMoves(Piece* piece, Position from)
-{
+std::vector<Position> Game::getValidMoves(Piece* piece, Position from){
     std::vector<Position> moves;
 
     for (int row = 0; row < 8; row++)
@@ -132,6 +131,5 @@ std::vector<Position> Game::getValidMoves(Piece* piece, Position from)
             }
         }
     }
-
     return moves;
 }
