@@ -272,8 +272,20 @@ void Board::undoMove(const Position &oldPosition, const Position &newPosition, s
     squares[newPosition.getRow()][newPosition.getCol()] = std::move(capturedPiece);
 }
 
-bool Board::isMoveLegal(const Move& move, Color movingColor)
-{
+bool Board::isInCheck(Color color){
+
+    //Encontra o rei
+    Position kingPos = findKing(color);
+
+    //Fica com a cor do inimigo
+    Color enemyColor = (color == Color::White) ? Color::Black : Color::White;
+
+    //Verifica se a posicao do rei esta a ser atacada
+    return isSquareAttacked(kingPos, enemyColor);
+}
+
+bool Board::isMoveLegal(const Move& move, Color movingColor){
+    
     //Guarda a peça que se vai movimentar
     Piece* piece = getPiece(move.start);
 
@@ -291,11 +303,58 @@ bool Board::isMoveLegal(const Move& move, Color movingColor)
 
     //Encontra a posição do rei aliado e verifica se ele fica em check no movimento
     Position kingPos = findKing(movingColor);
-    bool leavesKingInCheck = isSquareAttacked(kingPos, enemyColor);
+    bool leavesKingInCheck = isInCheck(movingColor);
 
     //Desfaz o movimento que foi simulado
     undoMove(move.start, move.destination, std::move(captured));
 
     //Retorna true se o king nao esta em check
     return !leavesKingInCheck;
+}
+
+bool Board::hasLegalMoves(Color color){
+    
+    for (int row = 0; row < 8; row++)
+    {
+        for (int col = 0; col < 8; col++)
+        {
+            //Fica com a posicao e e depois vai buscar a peça nessa posiçao
+            Position position(row, col);
+            Piece* piece = getPiece(position);
+            
+            //Se nao tem peça ou se a peça nao é da equipa do jogador a jogar
+            if (piece == nullptr || piece->getColor() != color)
+                continue;
+
+            //Verifica se a peça pode se mover para alguma posicao
+            for (int testRow = 0; testRow < 8; testRow++)
+            {
+                for (int testCol = 0; testCol < 8; testCol++)
+                {
+                    //Cria um destino e um movimento e verifica se é legal
+                    Position destination(testRow, testCol);
+                    Move move{piece, position, destination};
+
+                    if (isMoveLegal(move, color)){
+                        return true;
+                    }
+                        
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+bool Board::isCheckmate(Color color){   
+    
+    //Checkmate se esta em check e nao tem movimentos legais 
+    return isInCheck(color) && !hasLegalMoves(color);
+}
+
+bool Board::isStalemate(Color color){
+    
+    //Empate tecnico se nao esta em check mas nao tem movimentos legais 
+    return !isInCheck(color) && !hasLegalMoves(color);
 }

@@ -38,6 +38,18 @@ class Board {
 
         //Verifica se o movimento é legal
         bool isMoveLegal(const Move& move, Color movingColor);
+
+        //Verifica se o jogador está em check
+        bool isInCheck(Color color);
+
+        //Verifica se ainda existem movimentos que o jogador pode fazer
+        bool hasLegalMoves(Color color);
+
+        //Verifica se é checkmate
+        bool isCheckmate(Color color);
+
+        //Verifica se é empate tecnico
+        bool isStalemate(Color color);
     
     private:
         //Cria um board 8x8 com uma matriz
