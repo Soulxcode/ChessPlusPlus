@@ -77,6 +77,10 @@ Renderer::Renderer()
     {
         std::cout << "Falha ao carregar imagem de captura" << std::endl;
     }
+    if (!font.openFromFile("assets/font/Cinzel.ttf"))
+    {
+        std::cout << "Falha ao carregar fonte" << std::endl;
+    }
 }
 
 void Renderer::drawBoard(sf::RenderWindow& window){
@@ -169,8 +173,7 @@ void Renderer::drawHighlight(sf::RenderWindow& window, const Position& position,
     window.draw(highlight);
 }
 
-void Renderer::drawMoveHints(sf::RenderWindow& window, const std::vector<Position>& validMoves, const Board& board)
-{
+void Renderer::drawMoveHints(sf::RenderWindow& window, const std::vector<Position>& validMoves, const Board& board){
     for (const Position& pos : validMoves)
     {
         //Verifica se é uma captura
@@ -182,3 +185,34 @@ void Renderer::drawMoveHints(sf::RenderWindow& window, const std::vector<Positio
         window.draw(hint);
     }
 }
+
+void Renderer::drawGameOver(sf::RenderWindow& window, const std::string& message){
+    
+    //Cria o texto
+    sf::Text gameOverText(font);
+
+    //Parâmetros do texto
+    gameOverText.setString(message);
+    gameOverText.setCharacterSize(64);
+    gameOverText.setFillColor(sf::Color(218, 165, 32));
+    gameOverText.setOutlineColor(sf::Color::Black);
+    gameOverText.setOutlineThickness(3.0f);
+
+    //Espaço que o texto ocupa
+    sf::FloatRect bounds = gameOverText.getLocalBounds();
+
+    //Mete o texto no meio do seu espaço
+    gameOverText.setOrigin({
+        bounds.position.x + bounds.size.x / 2.0f, 
+        bounds.position.y + bounds.size.y / 2.0f 
+        });
+    
+    //Mete o texto no meio do ecra
+    gameOverText.setPosition({
+        width / 2.0f,
+        height / 2.0f
+    });
+
+    window.draw(gameOverText);
+}
+

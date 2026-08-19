@@ -101,6 +101,21 @@ void Game::render(){
         renderer.drawMoveHints(window, validMoves, board);
     }
     renderer.drawPieces(window, board);
+
+    //Se é checkmate mostra a mensagem de quem ganhou
+    if (board.isCheckmate(currentTurn)){
+        if (currentTurn == Color::White){
+            renderer.drawGameOver(window, "BLACK WINS");
+        }    
+        else{
+            renderer.drawGameOver(window, "WHITE WINS");
+        }    
+    }
+    //Se é empate   
+    else if (board.isStalemate(currentTurn))
+    {
+        renderer.drawGameOver(window, "DRAW");
+    }
     window.display();
 }
 

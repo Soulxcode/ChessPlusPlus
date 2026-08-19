@@ -25,6 +25,9 @@ class Renderer{
         //Metodo que desenha highlights das moves e capturas válidas 
         void drawMoveHints(sf::RenderWindow& window, const std::vector<Position>& validMoves, const Board& board);
 
+        //Metodo que desenha texto de game over
+        void drawGameOver(sf::RenderWindow& window, const std::string& message);
+
     private:
         //Texturas
         sf::Texture boardTexture;
@@ -45,4 +48,6 @@ class Renderer{
         sf::Texture moveTexture;
         sf::Texture captureTexture;
 
+        //Texto
+        sf::Font font;
 };
