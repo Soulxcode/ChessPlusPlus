@@ -24,10 +24,12 @@ void Game::processEvents(){
         //Verifica se o evento foi click no butao esquerdo do rato
         if(const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()){
             if(mousePressed->button == sf::Mouse::Button::Left){
-
-                //Fica com a posiçao do rato
-                leftClick(mousePressed->position);
-                
+                if (waitingPromotion){
+                    promotionClick(mousePressed->position);
+                } else{
+                    //Fica com a posiçao do rato
+                    leftClick(mousePressed->position);
+                }
             }
         }
     }
@@ -79,16 +81,32 @@ void Game::leftClick(sf::Vector2i mousePosition){
         isSelected = false;
 
         //Move a peça se o movimento é totalmente legal
-        if (board.isMoveLegal(move, currentTurn))
-        {
+        if (board.isMoveLegal(move, currentTurn)){
+            
             board.movePiece(selectedPosition, clicked);
             selectedPiece->setHasMoved();
+
+            //Se a peça selecionada é um peao verifica se é uma promoção
+            if (selectedPiece->getType() == PieceType::Pawn){
+                
+                //Verifica se esta na ultima linha da cor do jogador atual
+                int finalRow = (currentTurn == Color::White) ? 0 : 7;
+
+                //Se esta na ultima linha fica a espera a escolha do jogador
+                if (clicked.getRow() == finalRow){
+                    waitingPromotion = true;
+                    promotionPosition = clicked;
+                    promotionColor = currentTurn;
+                    return;
+                }
+            }
             switchTurn();
         }
     }
 }
 
 void Game::render(){
+    
     window.clear();
     renderer.drawBoard(window);
     renderer.drawHighlight(window, selectedPosition, isSelected);
@@ -147,4 +165,36 @@ std::vector<Position> Game::getValidMoves(Piece* piece, Position from){
         }
     }
     return moves;
+}
+
+void Game::promotionClick(sf::Vector2i mousePosition)
+{
+    sf::Vector2f viewPos = window.mapPixelToCoords(mousePosition);
+
+    //As 4 opções aparecem lado a lado, começando na coluna da promoção
+    int col = viewPos.x / TILE_SIZE;
+    int row = viewPos.y / TILE_SIZE;
+
+    //As opções ficam na mesma linha da promoção, ocupando 4 colunas a partir daí
+    int optionIndex = col - promotionPosition.getCol();
+
+    if (row != promotionPosition.getRow() || optionIndex < 0 || optionIndex > 3)
+    {
+        return; //Click fora das opções, ignora
+    }
+
+    PieceType chosenType;
+    switch (optionIndex)
+    {
+        case 0: chosenType = PieceType::Queen; break;
+        case 1: chosenType = PieceType::Rook; break;
+        case 2: chosenType = PieceType::Bishop; break;
+        case 3: chosenType = PieceType::Knight; break;
+    }
+
+    //Promove a peça de acordo com a escolha do jogador
+    board.promotePiece(promotionPosition, promotionColor, chosenType);
+
+    waitingPromotion = false;
+    switchTurn();
 }

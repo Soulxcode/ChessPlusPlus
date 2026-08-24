@@ -358,3 +358,24 @@ bool Board::isStalemate(Color color){
     //Empate tecnico se nao esta em check mas nao tem movimentos legais 
     return !isInCheck(color) && !hasLegalMoves(color);
 }
+
+void Board::promotePiece(const Position& position, Color color, PieceType type)
+{
+    switch (type)
+    {
+        case PieceType::Queen:
+            squares[position.getRow()][position.getCol()] = std::make_unique<Queen>(color);
+            break;
+        case PieceType::Rook:
+            squares[position.getRow()][position.getCol()] = std::make_unique<Rook>(color);
+            break;
+        case PieceType::Bishop:
+            squares[position.getRow()][position.getCol()] = std::make_unique<Bishop>(color);
+            break;
+        case PieceType::Knight:
+            squares[position.getRow()][position.getCol()] = std::make_unique<Knight>(color);
+            break;
+        default:
+            break;
+    }
+}

@@ -15,7 +15,7 @@ class Game
         void run();
 
     private:
-
+        
         //Metodo para processar eventos
         void processEvents();
 
@@ -48,4 +48,12 @@ class Game
 
         //Metodo que guarda num vetor os movimentos legais
         std::vector<Position> getValidMoves(Piece* piece, Position position);
+
+        //Medodo para verficar os inputs do rato durante a promoção
+        void promotionClick(sf::Vector2i mousePosition);
+
+        //Variaveis de promoção
+        bool waitingPromotion = false;
+        Position promotionPosition{0, 0};
+        Color promotionColor;
 };

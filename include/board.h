@@ -50,6 +50,9 @@ class Board {
 
         //Verifica se é empate tecnico
         bool isStalemate(Color color);
+
+        //Promove peças
+        void promotePiece(const Position& position, Color color, PieceType type);
     
     private:
         //Cria um board 8x8 com uma matriz
