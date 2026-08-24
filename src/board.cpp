@@ -379,3 +379,77 @@ void Board::promotePiece(const Position& position, Color color, PieceType type)
             break;
     }
 }
+
+bool Board::canCastle(Color color, bool kingside) const
+{
+    //Verifica em que linha o castle esta a ser feito
+    int row = (color == Color::White) ? 7 : 0;
+    Position kingPos(row, 4);
+    Piece* king = getPiece(kingPos);
+
+    //Se o rei nao existe, ou nao é um rei ou ja se mexeu
+    if (king == nullptr || king->getType() != PieceType::King || king->getHasMoved()){
+        return false;
+    }
+
+    //Verifica de que lado se vai fazer o castle
+    int rookCol = kingside ? 7 : 0;
+    Position rookPos(row, rookCol);
+    Piece* rook = getPiece(rookPos);
+
+    //Se a torre nao existe, ou nao é uma torre ou ja se mexeu
+    if (rook == nullptr || rook->getType() != PieceType::Rook || rook->getHasMoved()){
+        return false;
+    }
+
+    //Verifica se o caminho entre rei e torre está livre
+    int startCol = kingside ? 5 : 1;
+    int endCol = kingside ? 6 : 3;
+    
+    for (int col = startCol; col <= endCol; col++)
+    {
+        if (!isSquareEmpty(Position(row, col))){
+            return false;
+        }
+    }
+
+    //Verifica se o rei não está em xeque, e não passa por xeque em nenhuma casa do caminho
+    Color enemyColor = (color == Color::White) ? Color::Black : Color::White;
+    int kingPathStart = kingside ? 4 : 2;
+    int kingPathEnd = kingside ? 6 : 4;
+    
+    for (int col = kingPathStart; col <= kingPathEnd; col++)
+    {
+        if (isSquareAttacked(Position(row, col), enemyColor)){
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+void Board::castle(Color color, bool kingside)
+{
+    //Verifica em que posicoes o castle está a ser feito
+    int row = (color == Color::White) ? 7 : 0;
+    int kingStartCol = 4;
+    int kingEndCol = kingside ? 6 : 2;
+    int rookStartCol = kingside ? 7 : 0;
+    int rookEndCol = kingside ? 5 : 3;
+
+    //Cria as posicoes usadas no castle
+    Position kingStart(row, kingStartCol);
+    Position kingEnd(row, kingEndCol);
+    Position rookStart(row, rookStartCol);
+    Position rookEnd(row, rookEndCol);
+
+    //Move o rei
+    movePiece(kingStart, kingEnd);
+
+    //Move a torre
+    movePiece(rookStart, rookEnd);
+
+    //Marca ambas as peças como já tendo-se movido
+    getPiece(kingEnd)->setHasMoved();
+    getPiece(rookEnd)->setHasMoved();
+}

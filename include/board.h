@@ -53,6 +53,12 @@ class Board {
 
         //Promove peças
         void promotePiece(const Position& position, Color color, PieceType type);
+
+        //Verifica se existe um castle possivel
+        bool canCastle(Color color, bool kingside) const;
+        
+        //Faz o castle
+        void castle(Color color, bool kingside);
     
     private:
         //Cria um board 8x8 com uma matriz

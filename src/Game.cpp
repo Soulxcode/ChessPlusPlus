@@ -70,6 +70,25 @@ void Game::leftClick(sf::Vector2i mousePosition){
             return;
         }
 
+        //Se a peça é um rei, verifica se é um castle
+        if (selectedPiece->getType() == PieceType::King){
+
+            //Verifica se a coluna escolhida para o movimento é valida para um castle
+            int colDiff = clicked.getCol() - selectedPosition.getCol();
+
+            if (colDiff == 2 || colDiff == -2){
+                bool kingside = (colDiff == 2);
+
+                if (board.canCastle(currentTurn, kingside)){
+                    board.castle(currentTurn, kingside);
+                    switchTurn();
+                }
+
+                isSelected = false;
+                return;
+            }
+        }
+
         //Cria um movimento
         Move move{ selectedPiece, selectedPosition, clicked };
 
@@ -100,6 +119,7 @@ void Game::leftClick(sf::Vector2i mousePosition){
                     return;
                 }
             }
+            
             switchTurn();
         }
     }
