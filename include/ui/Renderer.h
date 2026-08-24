@@ -28,6 +28,9 @@ class Renderer{
         //Metodo que desenha texto de game over
         void drawGameOver(sf::RenderWindow& window, const std::string& message);
 
+        //Metodo para desenhar opcoes de promoçao
+        void drawPromotionOptions(sf::RenderWindow& window, Position position, Color color);
+
     private:
         //Texturas
         sf::Texture boardTexture;

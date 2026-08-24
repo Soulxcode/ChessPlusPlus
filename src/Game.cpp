@@ -112,13 +112,18 @@ void Game::render(){
     renderer.drawHighlight(window, selectedPosition, isSelected);
     
     //Se existe uma peça selecionada, desenha as ajudas no movimento
-    if (isSelected)
-    {
+    if (isSelected){
         Piece* selectedPiece = board.getPiece(selectedPosition);
         std::vector<Position> validMoves = getValidMoves(selectedPiece, selectedPosition);
         renderer.drawMoveHints(window, validMoves, board);
     }
+    
     renderer.drawPieces(window, board);
+
+    //Se existe uma promocao, desenha as opcoes de promocao
+    if (waitingPromotion){
+        renderer.drawPromotionOptions(window, promotionPosition, promotionColor);
+    }
 
     //Se é checkmate mostra a mensagem de quem ganhou
     if (board.isCheckmate(currentTurn)){
@@ -167,22 +172,29 @@ std::vector<Position> Game::getValidMoves(Piece* piece, Position from){
     return moves;
 }
 
-void Game::promotionClick(sf::Vector2i mousePosition)
-{
-    sf::Vector2f viewPos = window.mapPixelToCoords(mousePosition);
+void Game::promotionClick(sf::Vector2i mousePosition){
 
-    //As 4 opções aparecem lado a lado, começando na coluna da promoção
+    //Divide a posiçao do rato pelo tamanho do quadrado para obter a coluna e linha correta
+    sf::Vector2f viewPos = window.mapPixelToCoords(mousePosition);
     int col = viewPos.x / TILE_SIZE;
     int row = viewPos.y / TILE_SIZE;
 
-    //As opções ficam na mesma linha da promoção, ocupando 4 colunas a partir daí
-    int optionIndex = col - promotionPosition.getCol();
-
-    if (row != promotionPosition.getRow() || optionIndex < 0 || optionIndex > 3)
-    {
-        return; //Click fora das opções, ignora
+    //Click fora da coluna das opções, ignora
+    if (col != promotionPosition.getCol()){
+        return; 
     }
 
+    //Se a promocao é na posicao 0, as opcçoes sao desenhadas para baixo, se nao para cima
+    int direction = (promotionPosition.getRow() == 0) ? DOWN : UP;
+
+    //Calcula a opcao que o jogador escolheu
+    int optionIndex = (row - promotionPosition.getRow()) * direction;
+
+    //Click fora das opções, ignora
+    if (optionIndex < 0 || optionIndex > 3){
+        return; 
+    }
+    
     PieceType chosenType;
     switch (optionIndex)
     {

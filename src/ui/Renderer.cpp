@@ -216,3 +216,44 @@ void Renderer::drawGameOver(sf::RenderWindow& window, const std::string& message
     window.draw(gameOverText);
 }
 
+void Renderer::drawPromotionOptions(sf::RenderWindow& window, Position position, Color color)
+{
+    //Direção para desenhar as opções, se a promoção é na linha 0, desenha para baixo; se é na linha 7, desenha para cima
+    int direction = (position.getRow() == 0) ? DOWN : UP;
+
+    //As 4 texturas a mostrar, na ordem: Queen, Rook, Bishop, Knight
+    const sf::Texture* options[4];
+
+    //Guarda as texturas num array dependendo de quem esta a promover
+    if (color == Color::White)
+    {
+        options[0] = &lightQueenTexture;
+        options[1] = &lightRookTexture;
+        options[2] = &lightBishopTexture;
+        options[3] = &lightKnightTexture;
+    }
+    else
+    {
+        options[0] = &darkQueenTexture;
+        options[1] = &darkRookTexture;
+        options[2] = &darkBishopTexture;
+        options[3] = &darkKnightTexture;
+    }
+
+    for (int i = 0; i < 4; i++)
+    {
+        int row = position.getRow() + (i * direction);
+        int col = position.getCol();
+
+        //Desenha um fundo para destacar a opção
+        sf::RectangleShape background(sf::Vector2f(TILE_SIZE, TILE_SIZE));
+        background.setPosition(sf::Vector2f(col * TILE_SIZE, row * TILE_SIZE));
+        background.setFillColor(sf::Color(200, 200, 200, 230));
+        window.draw(background);
+
+        //Desenha opçao
+        sf::Sprite optionSprite(*options[i]);
+        optionSprite.setPosition(sf::Vector2f(col * TILE_SIZE, row * TILE_SIZE));
+        window.draw(optionSprite);
+    }
+}
