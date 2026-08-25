@@ -284,31 +284,38 @@ bool Board::isInCheck(Color color){
     return isSquareAttacked(kingPos, enemyColor);
 }
 
-bool Board::isMoveLegal(const Move& move, Color movingColor){
-    
-    //Guarda a peça que se vai movimentar
+bool Board::isMoveLegal(const Move& move, Color movingColor)
+{
     Piece* piece = getPiece(move.start);
 
-    //Verifica se a peça existe e se o movimento é válido
-    if (piece == nullptr || !piece->isValidMove(move, *this))
-    {
+    if (piece == nullptr || !piece->isValidMove(move, *this)){
         return false;
     }
 
-    //Guarda a cor inimiga
     Color enemyColor = (movingColor == Color::White) ? Color::Black : Color::White;
 
-    //Guarda a peça capturada e simula um movimento
+    //Se for uma captura en passant, a peça capturada não está no destino, mas sim ao lado do início
+    Position enPassantCapturedPos(move.start.getRow(), move.destination.getCol());
+    std::unique_ptr<Piece> enPassantCaptured;
+
+    if (move.moveType == MoveType::EnPassant){
+        enPassantCaptured = std::move(squares[enPassantCapturedPos.getRow()][enPassantCapturedPos.getCol()]);
+    }
+
+    //Guarda a peça capturada normal e simula o movimento
     std::unique_ptr<Piece> captured = movePiece(move.start, move.destination);
 
-    //Encontra a posição do rei aliado e verifica se ele fica em check no movimento
     Position kingPos = findKing(movingColor);
     bool leavesKingInCheck = isInCheck(movingColor);
 
-    //Desfaz o movimento que foi simulado
+    //Desfaz o movimento simulado
     undoMove(move.start, move.destination, std::move(captured));
 
-    //Retorna true se o king nao esta em check
+    //Restaura a peça capturada en passant, se aplicável
+    if (move.moveType == MoveType::EnPassant){
+        squares[enPassantCapturedPos.getRow()][enPassantCapturedPos.getCol()] = std::move(enPassantCaptured);
+    }
+
     return !leavesKingInCheck;
 }
 

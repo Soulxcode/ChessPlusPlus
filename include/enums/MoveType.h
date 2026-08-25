@@ -5,6 +5,6 @@ enum MoveType{
     Normal,
     Capture,
     Castle,
-    En_Passant,
+    EnPassant,
     Promotion
 };

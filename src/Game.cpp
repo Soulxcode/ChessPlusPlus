@@ -189,6 +189,25 @@ std::vector<Position> Game::getValidMoves(Piece* piece, Position from){
             }
         }
     }
+
+
+    //Se a peça selecionada é um rei, verifica também as opções de castle
+    if (piece->getType() == PieceType::King){
+        
+        //Kingside
+        if (board.canCastle(piece->getColor(), true)) 
+        {
+            int row = from.getRow();
+            moves.push_back(Position(row, 6));
+        }
+        //Queenside
+        if (board.canCastle(piece->getColor(), false)) 
+        {
+            int row = from.getRow();
+            moves.push_back(Position(row, 2));
+        }
+    }
+
     return moves;
 }
 

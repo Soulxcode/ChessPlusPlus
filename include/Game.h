@@ -56,4 +56,8 @@ class Game
         bool waitingPromotion = false;
         Position promotionPosition{0, 0};
         Color promotionColor;
-};
+
+        //Variaveis de en passant
+        bool lastMoveWasDoublePawnPush = false;
+        Position lastDoublePawnPushDestination{0, 0};
+    };
