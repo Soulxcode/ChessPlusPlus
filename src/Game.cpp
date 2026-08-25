@@ -97,6 +97,11 @@ void Game::leftClick(sf::Vector2i mousePosition){
             move.moveType = MoveType::Capture;
         }
 
+        //Verifica se é enpassant
+        else if (isEnPassantOpportunity(selectedPiece, selectedPosition, clicked)){
+            move.moveType = MoveType::EnPassant;
+        }
+
         isSelected = false;
 
         //Move a peça se o movimento é totalmente legal
@@ -104,6 +109,22 @@ void Game::leftClick(sf::Vector2i mousePosition){
             
             board.movePiece(selectedPosition, clicked);
             selectedPiece->setHasMoved();
+
+            //Se foi uma captura en passant, remove o peão capturado (que está ao lado, não no destino)
+            if (move.moveType == MoveType::EnPassant){
+                Position capturedPawnPos(selectedPosition.getRow(), clicked.getCol());
+                board.removePiece(capturedPawnPos);
+            }
+
+            //Verifica se o peao andou duas casas para a frente 
+            int rowDiff = clicked.getRow() - selectedPosition.getRow();
+            bool isDoublePush = (selectedPiece->getType() == PieceType::Pawn) && (rowDiff == 2 || rowDiff == -2);
+            lastMoveWasDoublePawnPush = isDoublePush;
+            
+            //Se andou duas casas fica com o destino desse movimento
+            if (isDoublePush){
+                lastDoublePawnPushDestination = clicked;
+            }
 
             //Se a peça selecionada é um peao verifica se é uma promoção
             if (selectedPiece->getType() == PieceType::Pawn){
@@ -183,8 +204,12 @@ std::vector<Position> Game::getValidMoves(Piece* piece, Position from){
             //Cria um movimento para testar
             Move move{piece, from, test};
 
-            if (board.isMoveLegal(move, piece->getColor()))
-            {
+            //Se é un enpassant muda o tipo de movimento
+            if (isEnPassantOpportunity(piece, from, test)){
+                move.moveType = MoveType::EnPassant;
+            }
+
+            if (board.isMoveLegal(move, piece->getColor())){
                 moves.push_back(test);
             }
         }
@@ -248,4 +273,16 @@ void Game::promotionClick(sf::Vector2i mousePosition){
 
     waitingPromotion = false;
     switchTurn();
+}
+
+bool Game::isEnPassantOpportunity(Piece* piece, Position from, Position to) const
+{
+    //Fas as verificaçoes
+    if (piece->getType() != PieceType::Pawn || !lastMoveWasDoublePawnPush){
+        return false;
+    }
+
+    //A peça capturada teria de estar na mesma linha do início, na coluna do destino
+    return lastDoublePawnPushDestination.getRow() == from.getRow()
+        && lastDoublePawnPushDestination.getCol() == to.getCol();
 }

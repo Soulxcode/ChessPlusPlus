@@ -52,6 +52,9 @@ class Game
         //Medodo para verficar os inputs do rato durante a promoção
         void promotionClick(sf::Vector2i mousePosition);
 
+        //Metodo que verifica se existe a possibilidade de um enpassant
+        bool isEnPassantOpportunity(Piece* piece, Position from, Position to) const;
+
         //Variaveis de promoção
         bool waitingPromotion = false;
         Position promotionPosition{0, 0};

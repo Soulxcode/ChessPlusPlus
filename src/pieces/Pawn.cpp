@@ -53,6 +53,14 @@ bool Pawn::isValidMove(const Move &move, const Board &board) const
             && board.getPiece(move.destination)->getColor() == Color::Black
             && destRow == UP + startRow){
                 return true;
+            }
+            
+            //Verifica se é uma captura en passant válida
+            if(move.moveType == MoveType::EnPassant
+            && board.isSquareEmpty(move.destination)
+            && destRow == UP + startRow){
+                return true;
+            
             } else {
                 return false;
             }
@@ -80,7 +88,7 @@ bool Pawn::isValidMove(const Move &move, const Board &board) const
             }
             return false;
         }
-
+    
         //Verifica se existe alguma peça no caminho 
         if(startRow + DOWN == destRow && startCol == destCol 
             && board.getPiece(move.destination) == nullptr){
@@ -94,11 +102,19 @@ bool Pawn::isValidMove(const Move &move, const Board &board) const
             && destRow - DOWN == startRow){
                 
                 return true;
+            }             
+            
+            //Verifica se é uma captura en passant válida
+            if(move.moveType == MoveType::EnPassant
+            && board.isSquareEmpty(move.destination)
+            && destRow == DOWN + startRow){
+                return true;
+            
             } else {
                 return false;
             }
         }
-    }
+    }    
     
     return false;
 }
