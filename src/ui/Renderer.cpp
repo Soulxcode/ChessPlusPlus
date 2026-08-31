@@ -208,10 +208,7 @@ void Renderer::drawGameOver(sf::RenderWindow& window, const std::string& message
         });
     
     //Mete o texto no meio do ecra
-    gameOverText.setPosition({
-        width / 2.0f,
-        height / 2.0f
-    });
+    gameOverText.setPosition({ WIDTH / 2.0f, HEIGHT / 2.0f });
 
     window.draw(gameOverText);
 }
@@ -256,4 +253,39 @@ void Renderer::drawPromotionOptions(sf::RenderWindow& window, Position position,
         optionSprite.setPosition(sf::Vector2f(col * TILE_SIZE, row * TILE_SIZE));
         window.draw(optionSprite);
     }
+}
+
+void Renderer::drawRematchButton(sf::RenderWindow& window)
+{
+    float buttonWidth = 200.f;
+    float buttonHeight = 60.f;
+
+    //Centrar horizontalmente e um pouco abaixo do centro
+    float x = (WIDTH - buttonWidth) / 2.f;
+    float y = (HEIGHT - buttonHeight) / 2.f + 100.f;
+
+    rematchButtonBounds = sf::FloatRect({x, y}, {buttonWidth, buttonHeight});
+
+    sf::RectangleShape button(sf::Vector2f(buttonWidth, buttonHeight));
+    button.setPosition(sf::Vector2f(x, y));
+    button.setFillColor(sf::Color::Black);
+    //button.setFillColor(sf::Color(70, 130, 180));
+
+    sf::Text text(font, "Rematch", 30);
+    text.setFillColor(sf::Color::White);
+
+    //Centraliza o texto dentro do botão
+    sf::FloatRect textBounds = text.getLocalBounds();
+    text.setPosition(sf::Vector2f(
+        x + (buttonWidth - textBounds.size.x) / 2.f,
+        y + (buttonHeight - textBounds.size.y) / 2.f - textBounds.position.y
+    ));
+
+    window.draw(button);
+    window.draw(text);
+}
+
+bool Renderer::isRematchButtonClicked(sf::Vector2i mousePosition) const
+{
+    return rematchButtonBounds.contains(sf::Vector2f(mousePosition));
 }

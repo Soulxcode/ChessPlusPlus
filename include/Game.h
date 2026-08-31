@@ -55,6 +55,9 @@ class Game
         //Metodo que verifica se existe a possibilidade de um enpassant
         bool isEnPassantOpportunity(Piece* piece, Position from, Position to) const;
 
+        //Metodo que faz reset no jogo
+        void resetGame();
+
         //Variaveis de promoção
         bool waitingPromotion = false;
         Position promotionPosition{0, 0};
@@ -63,4 +66,7 @@ class Game
         //Variaveis de en passant
         bool lastMoveWasDoublePawnPush = false;
         Position lastDoublePawnPushDestination{0, 0};
+
+        //Conctrola se o jogo acabou
+        bool gameOver = false;
     };

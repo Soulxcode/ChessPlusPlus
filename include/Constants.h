@@ -4,8 +4,8 @@
 const int TILE_SIZE = 128;
 
 //Tamanho da janela do jogo em pixeis
-const int width = 1024;
-const int height = 1024;
+const int WIDTH = 1024;
+const int HEIGHT = 1024;
 
 //Para não ter numeros magicos
 const int UP = -1;

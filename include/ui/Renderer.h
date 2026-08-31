@@ -31,6 +31,12 @@ class Renderer{
         //Metodo para desenhar opcoes de promoçao
         void drawPromotionOptions(sf::RenderWindow& window, Position position, Color color);
 
+        //Desenha o button de rematch
+        void drawRematchButton(sf::RenderWindow& window);
+
+        //Metodo que verifica se o butao de rematch foi usado
+        bool isRematchButtonClicked(sf::Vector2i mousePosition) const;
+
     private:
         //Texturas
         sf::Texture boardTexture;
@@ -53,4 +59,7 @@ class Renderer{
 
         //Texto
         sf::Font font;
+
+        //Retangulo do butao
+        sf::FloatRect rematchButtonBounds;
 };

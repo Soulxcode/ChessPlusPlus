@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "Constants.h"
 
-Game::Game() : window(sf::VideoMode(sf::Vector2u(width, height)), "Chess++"){}
+Game::Game() : window(sf::VideoMode(sf::Vector2u(WIDTH, HEIGHT)), "Chess++"){}
 
 void Game::run()
 {
@@ -24,6 +24,15 @@ void Game::processEvents(){
         //Verifica se o evento foi click no butao esquerdo do rato
         if(const auto* mousePressed = event->getIf<sf::Event::MouseButtonPressed>()){
             if(mousePressed->button == sf::Mouse::Button::Left){
+
+                //Se o jogo acabou
+                if (gameOver){
+                    if (renderer.isRematchButtonClicked(mousePressed->position)){
+                        resetGame();
+                    }
+                }
+
+                //Se está á espera de uma promoçao
                 if (waitingPromotion){
                     promotionClick(mousePressed->position);
                 } else{
@@ -170,15 +179,21 @@ void Game::render(){
     if (board.isCheckmate(currentTurn)){
         if (currentTurn == Color::White){
             renderer.drawGameOver(window, "BLACK WINS");
+            renderer.drawRematchButton(window);
+            gameOver = true;
         }    
         else{
             renderer.drawGameOver(window, "WHITE WINS");
+            renderer.drawRematchButton(window);
+            gameOver = true;
         }    
     }
+    
     //Se é empate   
-    else if (board.isStalemate(currentTurn))
-    {
+    else if (board.isStalemate(currentTurn)){
         renderer.drawGameOver(window, "DRAW");
+        renderer.drawRematchButton(window);
+        gameOver = true;
     }
     window.display();
 }
@@ -285,4 +300,17 @@ bool Game::isEnPassantOpportunity(Piece* piece, Position from, Position to) cons
     //A peça capturada teria de estar na mesma linha do início, na coluna do destino
     return lastDoublePawnPushDestination.getRow() == from.getRow()
         && lastDoublePawnPushDestination.getCol() == to.getCol();
+}
+
+void Game::resetGame()
+{
+    //Recria o board do zero (chama o construtor de Board novamente, com a posição inicial)
+    board = Board();
+
+    //Reinicia todo o estado do jogo
+    currentTurn = Color::White;
+    isSelected = false;
+    gameOver = false;
+    waitingPromotion = false;
+    lastMoveWasDoublePawnPush = false;
 }
