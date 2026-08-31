@@ -257,6 +257,7 @@ void Renderer::drawPromotionOptions(sf::RenderWindow& window, Position position,
 
 void Renderer::drawRematchButton(sf::RenderWindow& window)
 {
+    //Comprimento e largura do butao
     float buttonWidth = 200.f;
     float buttonHeight = 60.f;
 
@@ -264,13 +265,16 @@ void Renderer::drawRematchButton(sf::RenderWindow& window)
     float x = (WIDTH - buttonWidth) / 2.f;
     float y = (HEIGHT - buttonHeight) / 2.f + 100.f;
 
+    //Guarda a posicao e o tamanho do butao
     rematchButtonBounds = sf::FloatRect({x, y}, {buttonWidth, buttonHeight});
 
+    //Cria o butao visualmente
     sf::RectangleShape button(sf::Vector2f(buttonWidth, buttonHeight));
     button.setPosition(sf::Vector2f(x, y));
     button.setFillColor(sf::Color::Black);
     //button.setFillColor(sf::Color(70, 130, 180));
 
+    //Texto do butao
     sf::Text text(font, "Rematch", 30);
     text.setFillColor(sf::Color::White);
 
