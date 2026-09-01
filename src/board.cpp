@@ -272,7 +272,7 @@ void Board::undoMove(const Position &oldPosition, const Position &newPosition, s
     squares[newPosition.getRow()][newPosition.getCol()] = std::move(capturedPiece);
 }
 
-bool Board::isInCheck(Color color){
+bool Board::isInCheck(Color color) const{
 
     //Encontra o rei
     Position kingPos = findKing(color);

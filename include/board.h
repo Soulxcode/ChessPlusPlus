@@ -41,7 +41,7 @@ class Board {
         bool isMoveLegal(const Move& move, Color movingColor);
 
         //Verifica se o jogador está em check
-        bool isInCheck(Color color);
+        bool isInCheck(Color color) const;
 
         //Verifica se ainda existem movimentos que o jogador pode fazer
         bool hasLegalMoves(Color color);
