@@ -245,7 +245,7 @@ void Game::promotionClick(sf::Vector2i mousePosition){
 
 void Game::resetGame()
 {
-    //Recria o board do zero (chama o construtor de Board novamente, com a posição inicial)
+    //Recria o board do zero
     board = Board();
 
     //Reinicia todo o estado do jogo
