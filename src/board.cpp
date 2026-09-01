@@ -368,7 +368,7 @@ bool Board::isStalemate(Color color){
 
 void Board::promotePiece(const Position& position, Color color, PieceType type)
 {
-    switch (type)
+    switch(type)
     {
         case PieceType::Queen:
             squares[position.getRow()][position.getCol()] = std::make_unique<Queen>(color);
