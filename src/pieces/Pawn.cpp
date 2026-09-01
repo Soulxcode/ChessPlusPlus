@@ -100,7 +100,6 @@ bool Pawn::isValidMove(const Move &move, const Board &board) const
             if(board.getPiece(move.destination) != nullptr 
             && board.getPiece(move.destination)->getColor() == Color::White
             && destRow - DOWN == startRow){
-                
                 return true;
             }             
             

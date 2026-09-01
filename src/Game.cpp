@@ -107,7 +107,7 @@ void Game::leftClick(sf::Vector2i mousePosition){
         }
 
         //Verifica se é enpassant
-        else if (isEnPassantOpportunity(selectedPiece, selectedPosition, clicked)){
+        else if(isEnPassantOpportunity(selectedPiece, selectedPosition, clicked)){
             move.moveType = MoveType::EnPassant;
         }
 
