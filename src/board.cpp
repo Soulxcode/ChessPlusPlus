@@ -69,12 +69,24 @@ std::unique_ptr<Piece> Board::movePiece(const Position& start, const Position &d
         return nullptr;
     }
 
+    //Guarda o tipo e a linha inicial antes de mover
+    PieceType movingType = getPiece(start)->getType();
+    int rowDiff = destination.getRow() - start.getRow();
+
     //Guarda a peca que vai ser capturada
     std::unique_ptr<Piece> captured = std::move(squares[destination.getRow()][destination.getCol()]);
 
     //Usa std::move para transferir a propriedade do objeto
     squares[destination.getRow()][destination.getCol()] = 
     std::move(squares[start.getRow()][start.getCol()]);
+
+    //Atualiza o estado do en passant
+    bool isDoublePush = (movingType == PieceType::Pawn) && (rowDiff == 2 || rowDiff == -2);
+    lastMoveWasDoublePawnPush = isDoublePush;
+
+    if(isDoublePush){
+        lastDoublePawnPushDestination = destination;
+    }
     
     return captured;
 }
@@ -425,6 +437,7 @@ bool Board::canCastle(Color color, bool kingside) const
     int kingPathStart = kingside ? 4 : 2;
     int kingPathEnd = kingside ? 6 : 4;
     
+    //Verifica quadrado inicial, intermedios e final por um check, se encontrar, castle ilegal
     for (int col = kingPathStart; col <= kingPathEnd; col++)
     {
         if (isSquareAttacked(Position(row, col), enemyColor)){
@@ -459,4 +472,61 @@ void Board::castle(Color color, bool kingside)
     //Marca ambas as peças como já tendo-se movido
     getPiece(kingEnd)->setHasMoved();
     getPiece(rookEnd)->setHasMoved();
+}
+
+bool Board::isEnPassantOpportunity(Piece* piece, Position from, Position to) const
+{
+    //Fas as verificaçoes
+    if (piece->getType() != PieceType::Pawn || !lastMoveWasDoublePawnPush){
+        return false;
+    }
+
+    //A peça capturada teria de estar na mesma linha do início, na coluna do destino
+    return lastDoublePawnPushDestination.getRow() == from.getRow()
+        && lastDoublePawnPushDestination.getCol() == to.getCol();
+}
+
+std::vector<Position> Board::getValidMoves(Piece* piece, Position from){
+    std::vector<Position> moves;
+
+    for (int row = 0; row < 8; row++)
+    {
+        for (int col = 0; col < 8; col++)
+        {
+            //Cria uma posicao teste
+            Position test(row, col);
+
+            //Cria um movimento para testar
+            Move move{piece, from, test};
+
+            //Se é un enpassant muda o tipo de movimento
+            if (isEnPassantOpportunity(piece, from, test)){
+                move.moveType = MoveType::EnPassant;
+            }
+
+            if (isMoveLegal(move, piece->getColor())){
+                moves.push_back(test);
+            }
+        }
+    }
+
+
+    //Se a peça selecionada é um rei, verifica também as opções de castle
+    if (piece->getType() == PieceType::King){
+        
+        //Kingside
+        if (canCastle(piece->getColor(), true)) 
+        {
+            int row = from.getRow();
+            moves.push_back(Position(row, 6));
+        }
+        //Queenside
+        if (canCastle(piece->getColor(), false)) 
+        {
+            int row = from.getRow();
+            moves.push_back(Position(row, 2));
+        }
+    }
+
+    return moves;
 }

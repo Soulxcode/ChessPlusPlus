@@ -107,7 +107,7 @@ void Game::leftClick(sf::Vector2i mousePosition){
         }
 
         //Verifica se é enpassant
-        else if(isEnPassantOpportunity(selectedPiece, selectedPosition, clicked)){
+        else if(board.isEnPassantOpportunity(selectedPiece, selectedPosition, clicked)){
             move.moveType = MoveType::EnPassant;
         }
 
@@ -128,13 +128,7 @@ void Game::leftClick(sf::Vector2i mousePosition){
             //Verifica se o peao andou duas casas para a frente 
             int rowDiff = clicked.getRow() - selectedPosition.getRow();
             bool isDoublePush = (selectedPiece->getType() == PieceType::Pawn) && (rowDiff == 2 || rowDiff == -2);
-            lastMoveWasDoublePawnPush = isDoublePush;
             
-            //Se andou duas casas fica com o destino desse movimento
-            if (isDoublePush){
-                lastDoublePawnPushDestination = clicked;
-            }
-
             //Se a peça selecionada é um peao verifica se é uma promoção
             if (selectedPiece->getType() == PieceType::Pawn){
                 
@@ -164,7 +158,7 @@ void Game::render(){
     //Se existe uma peça selecionada, desenha as ajudas no movimento
     if (isSelected){
         Piece* selectedPiece = board.getPiece(selectedPosition);
-        std::vector<Position> validMoves = getValidMoves(selectedPiece, selectedPosition);
+        std::vector<Position> validMoves = board.getValidMoves(selectedPiece, selectedPosition);
         renderer.drawMoveHints(window, validMoves, board);
     }
     
@@ -206,51 +200,6 @@ void Game::switchTurn(){
     }
 }
 
-std::vector<Position> Game::getValidMoves(Piece* piece, Position from){
-    std::vector<Position> moves;
-
-    for (int row = 0; row < 8; row++)
-    {
-        for (int col = 0; col < 8; col++)
-        {
-            //Cria uma posicao teste
-            Position test(row, col);
-
-            //Cria um movimento para testar
-            Move move{piece, from, test};
-
-            //Se é un enpassant muda o tipo de movimento
-            if (isEnPassantOpportunity(piece, from, test)){
-                move.moveType = MoveType::EnPassant;
-            }
-
-            if (board.isMoveLegal(move, piece->getColor())){
-                moves.push_back(test);
-            }
-        }
-    }
-
-
-    //Se a peça selecionada é um rei, verifica também as opções de castle
-    if (piece->getType() == PieceType::King){
-        
-        //Kingside
-        if (board.canCastle(piece->getColor(), true)) 
-        {
-            int row = from.getRow();
-            moves.push_back(Position(row, 6));
-        }
-        //Queenside
-        if (board.canCastle(piece->getColor(), false)) 
-        {
-            int row = from.getRow();
-            moves.push_back(Position(row, 2));
-        }
-    }
-
-    return moves;
-}
-
 void Game::promotionClick(sf::Vector2i mousePosition){
 
     //Divide a posiçao do rato pelo tamanho do quadrado para obter a coluna e linha correta
@@ -290,18 +239,6 @@ void Game::promotionClick(sf::Vector2i mousePosition){
     switchTurn();
 }
 
-bool Game::isEnPassantOpportunity(Piece* piece, Position from, Position to) const
-{
-    //Fas as verificaçoes
-    if (piece->getType() != PieceType::Pawn || !lastMoveWasDoublePawnPush){
-        return false;
-    }
-
-    //A peça capturada teria de estar na mesma linha do início, na coluna do destino
-    return lastDoublePawnPushDestination.getRow() == from.getRow()
-        && lastDoublePawnPushDestination.getCol() == to.getCol();
-}
-
 void Game::resetGame()
 {
     //Recria o board do zero (chama o construtor de Board novamente, com a posição inicial)
@@ -312,5 +249,4 @@ void Game::resetGame()
     isSelected = false;
     gameOver = false;
     waitingPromotion = false;
-    lastMoveWasDoublePawnPush = false;
 }

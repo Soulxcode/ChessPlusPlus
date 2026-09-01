@@ -3,6 +3,7 @@
 #include "Piece.h"
 #include "Position.h"
 #include "enums/DirectionType.h"
+#include <vector>
 
 class Board {
     public:
@@ -59,9 +60,19 @@ class Board {
         
         //Faz o castle
         void castle(Color color, bool kingside);
+
+        //Metodo que verifica se existe a possibilidade de um enpassant
+        bool isEnPassantOpportunity(Piece* piece, Position from, Position to) const;
+
+        //Metodo que guarda num vetor os movimentos legais
+        std::vector<Position> getValidMoves(Piece* piece, Position position);
     
     private:
         //Cria um board 8x8 com uma matriz
         //Cada quadrado tem um apontador para a peca ou nullptr se nenhuma peca
-        std::unique_ptr<Piece> squares[8][8]; 
+        std::unique_ptr<Piece> squares[8][8];
+        
+        //Variaveis de en passant
+        bool lastMoveWasDoublePawnPush = false;
+        Position lastDoublePawnPushDestination{0, 0};
 };
