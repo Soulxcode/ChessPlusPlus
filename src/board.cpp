@@ -68,25 +68,13 @@ std::unique_ptr<Piece> Board::movePiece(const Position& start, const Position &d
     if(getPiece(start) == nullptr){
         return nullptr;
     }
-
-    //Guarda o tipo e a linha inicial antes de mover
-    PieceType movingType = getPiece(start)->getType();
-    int rowDiff = destination.getRow() - start.getRow();
-
+    
     //Guarda a peca que vai ser capturada
     std::unique_ptr<Piece> captured = std::move(squares[destination.getRow()][destination.getCol()]);
 
     //Usa std::move para transferir a propriedade do objeto
     squares[destination.getRow()][destination.getCol()] = 
     std::move(squares[start.getRow()][start.getCol()]);
-
-    //Atualiza o estado do en passant
-    bool isDoublePush = (movingType == PieceType::Pawn) && (rowDiff == 2 || rowDiff == -2);
-    lastMoveWasDoublePawnPush = isDoublePush;
-
-    if(isDoublePush){
-        lastDoublePawnPushDestination = destination;
-    }
     
     return captured;
 }
@@ -529,4 +517,18 @@ std::vector<Position> Board::getValidMoves(Piece* piece, Position from){
     }
 
     return moves;
+}
+
+void Board::updateEnPassantState(const Position &start, const Position &destination, PieceType movedType){
+    
+    int rowDiff = destination.getRow() - start.getRow();
+
+    //Verifica se moveu se 2 casas
+    bool isDoublePush = (movedType == PieceType::Pawn) && (rowDiff == 2 || rowDiff == -2);
+    lastMoveWasDoublePawnPush = isDoublePush;
+    
+    //Atualiza variavel
+    if (isDoublePush){
+        lastDoublePawnPushDestination = destination;
+    }
 }

@@ -66,6 +66,9 @@ class Board {
 
         //Metodo que guarda num vetor os movimentos legais
         std::vector<Position> getValidMoves(Piece* piece, Position position);
+
+        //Atualiza o estado de en passant depois de um movimento 
+        void updateEnPassantState(const Position &start, const Position &destination, PieceType movedType);
     
     private:
         //Cria um board 8x8 com uma matriz

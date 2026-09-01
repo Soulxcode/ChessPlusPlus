@@ -80,15 +80,15 @@ void Game::leftClick(sf::Vector2i mousePosition){
         }
 
         //Se a peça é um rei, verifica se é um castle
-        if (selectedPiece->getType() == PieceType::King){
+        if(selectedPiece->getType() == PieceType::King){
 
             //Verifica se a coluna escolhida para o movimento é valida para um castle
             int colDiff = clicked.getCol() - selectedPosition.getCol();
 
-            if (colDiff == 2 || colDiff == -2){
+            if(colDiff == 2 || colDiff == -2){
                 bool kingside = (colDiff == 2);
 
-                if (board.canCastle(currentTurn, kingside)){
+                if(board.canCastle(currentTurn, kingside)){
                     board.castle(currentTurn, kingside);
                     switchTurn();
                 }
@@ -116,8 +116,12 @@ void Game::leftClick(sf::Vector2i mousePosition){
         //Move a peça se o movimento é totalmente legal
         if (board.isMoveLegal(move, currentTurn)){
             
+            PieceType movedType = selectedPiece->getType();
             board.movePiece(selectedPosition, clicked);
             selectedPiece->setHasMoved();
+
+            //Atualiza se o en passnt é possivel
+            board.updateEnPassantState(selectedPosition, clicked, movedType);
 
             //Se foi uma captura en passant, remove o peão capturado (que está ao lado, não no destino)
             if (move.moveType == MoveType::EnPassant){
