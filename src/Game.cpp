@@ -92,7 +92,7 @@ void Game::leftClick(sf::Vector2i mousePosition){
             return;
             }
         
-            //Se a peça é um rei, verifica se é um castle
+        //Se a peça é um rei, verifica se é um castle
         if(selectedPiece->getType() == PieceType::King){
 
             //Verifica se a coluna escolhida para o movimento é valida para um castle
