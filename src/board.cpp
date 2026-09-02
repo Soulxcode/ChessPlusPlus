@@ -123,20 +123,24 @@ bool Board::checkDirection(const Position &destination, int rowStep, int colStep
 
         //Se a peça é inimiga verificar se existe perigo
         if(piece->getColor() == enemyColor){
+            
             if(directionType  == DirectionType::Diagonal){
                 if(piece->getType() == PieceType::Bishop || piece->getType() == PieceType::Queen){
                     return true;
                 }
             }
+            
             if(directionType == DirectionType::Straight){
                 if(piece->getType() == PieceType::Rook || piece->getType() == PieceType::Queen){
                     return true;
                 }
             }
         }
+        
         //Encontrou peça que nao apresenta perigo
         return false;
     }
+    
     //Nao existia peças
     return false;
 }
@@ -503,14 +507,13 @@ std::vector<Position> Board::getValidMoves(Piece* piece, Position from){
     if (piece->getType() == PieceType::King){
         
         //Kingside
-        if (canCastle(piece->getColor(), true)) 
-        {
+        if (canCastle(piece->getColor(), true)){
             int row = from.getRow();
             moves.push_back(Position(row, 6));
         }
+        
         //Queenside
-        if (canCastle(piece->getColor(), false)) 
-        {
+        if (canCastle(piece->getColor(), false)){
             int row = from.getRow();
             moves.push_back(Position(row, 2));
         }

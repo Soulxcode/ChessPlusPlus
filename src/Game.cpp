@@ -79,7 +79,15 @@ void Game::leftClick(sf::Vector2i mousePosition){
             return;
         }
 
-        //Se a peça é um rei, verifica se é um castle
+        //Verifica se é da mesma equipa sem ser a mesma peça
+        Piece* clickedPiece = board.getPiece(clicked);
+        if (clickedPiece != nullptr && clickedPiece->getColor() == currentTurn 
+            && !(clicked.getRow() == selectedPosition.getRow() && clicked.getCol() == selectedPosition.getCol())){
+            selectedPosition = clicked;
+            return;
+            }
+        
+            //Se a peça é um rei, verifica se é um castle
         if(selectedPiece->getType() == PieceType::King){
 
             //Verifica se a coluna escolhida para o movimento é valida para um castle
