@@ -115,7 +115,7 @@ void Game::leftClick(sf::Vector2i mousePosition){
         Move move{ selectedPiece, selectedPosition, clicked };
 
         //Se existe uma peça no destino, é uma captura
-        if(board.getPiece(clicked) != nullptr){
+        if(clickedPiece != nullptr){
             move.moveType = MoveType::Capture;
         }
 
