@@ -173,7 +173,7 @@ bool Board::isSquareAttacked(const Position &position, Color enemyColor) const{
     if(checkDirection(position, 0, RIGHT, enemyColor, DirectionType::Straight))
         return true;    
     
-    //Verifica se ha peoes a atacar
+    //Fica com a linha para verificar se ha peoes a atacar
     int pawnRow = (enemyColor == Color::White) ? position.getRow() + DOWN : position.getRow() + UP;
 
     //Vai buscar as posiçoes dos peoes

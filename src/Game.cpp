@@ -32,13 +32,8 @@ void Game::processEvents(){
                     }
                 }
 
-                //Se está á espera de uma promoçao
-                if (waitingPromotion){
-                    promotionClick(mousePressed->position);
-                } else{
-                    //Fica com a posiçao do rato
-                    leftClick(mousePressed->position);
-                }
+                //Verifica se está á espera de uma promoçao, se nao, fica com o click do rato
+                waitingPromotion ? promotionClick(mousePressed->position) : leftClick(mousePressed->position);
             }
         }
     }
@@ -72,8 +67,8 @@ void Game::leftClick(sf::Vector2i mousePosition){
             selectedPosition = clicked;
             isSelected = true;
         }
-    }
-    else{
+    
+    } else{
 
         //Fica com um apontador para a peça que se vai mover
         Piece* selectedPiece = board.getPiece(selectedPosition);
@@ -184,16 +179,12 @@ void Game::render(){
 
     //Se é checkmate mostra a mensagem de quem ganhou
     if (board.isCheckmate(currentTurn)){
-        if (currentTurn == Color::White){
-            renderer.drawGameOver(window, "BLACK WINS");
-            renderer.drawRematchButton(window);
-            gameOver = true;
-        }    
-        else{
-            renderer.drawGameOver(window, "WHITE WINS");
-            renderer.drawRematchButton(window);
-            gameOver = true;
-        }    
+        
+        //Verifica quem ganhou para mostrar o texto
+        std::string winnerText = currentTurn == Color::White ? winnerText = "BLACK WINS" : winnerText = "WHITE WINS";
+        renderer.drawGameOver(window, winnerText);
+        renderer.drawRematchButton(window);
+        gameOver = true;    
     }
     
     //Se é empate   
@@ -206,11 +197,7 @@ void Game::render(){
 }
 
 void Game::switchTurn(){
-    if(currentTurn == Color::White){
-        currentTurn = Color::Black;
-    } else{
-        currentTurn = Color::White;
-    }
+    currentTurn = (currentTurn == Color::White) ? Color::Black : Color::White;
 }
 
 void Game::promotionClick(sf::Vector2i mousePosition){
