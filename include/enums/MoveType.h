@@ -1,7 +1,7 @@
 #pragma once
 
 //Tipo de movimentos possiveis
-enum MoveType{
+enum class MoveType{
     Normal,
     Capture,
     Castle,

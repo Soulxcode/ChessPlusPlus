@@ -1,7 +1,7 @@
 #pragma once
 
 //Tipo de direçoes possiveis 
-enum DirectionType{
+enum class DirectionType{
     Straight,
     Diagonal
 };

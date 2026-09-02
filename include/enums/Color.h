@@ -1,7 +1,7 @@
 #pragma once
 
 //Cores possiveis para os jogadores
-enum Color{
+enum class Color{
     White,
     Black
 };
