@@ -45,6 +45,11 @@ void Game::processEvents(){
 }
 
 void Game::leftClick(sf::Vector2i mousePosition){
+
+    //Para nao ser possivel selecionar peças depois do jogo acabar
+    if (gameOver){
+        return;
+    }
     
     //Divide a posiçao do rato pelo tamanho do quadrado para obter a coluna e linha correta
     sf::Vector2f viewPos = window.mapPixelToCoords(mousePosition);
