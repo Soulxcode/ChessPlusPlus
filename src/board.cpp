@@ -309,7 +309,6 @@ bool Board::isMoveLegal(const Move& move, Color movingColor)
     //Guarda a peça capturada normal e simula o movimento
     std::unique_ptr<Piece> captured = movePiece(move.start, move.destination);
 
-    Position kingPos = findKing(movingColor);
     bool leavesKingInCheck = isInCheck(movingColor);
 
     //Desfaz o movimento simulado
