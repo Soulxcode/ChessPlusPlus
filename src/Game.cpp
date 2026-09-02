@@ -141,10 +141,6 @@ void Game::leftClick(sf::Vector2i mousePosition){
                 Position capturedPawnPos(selectedPosition.getRow(), clicked.getCol());
                 board.removePiece(capturedPawnPos);
             }
-
-            //Verifica se o peao andou duas casas para a frente 
-            int rowDiff = clicked.getRow() - selectedPosition.getRow();
-            bool isDoublePush = (selectedPiece->getType() == PieceType::Pawn) && (rowDiff == 2 || rowDiff == -2);
             
             //Se a peça selecionada é um peao verifica se é uma promoção
             if (selectedPiece->getType() == PieceType::Pawn){
