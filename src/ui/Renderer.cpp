@@ -96,10 +96,10 @@ void Renderer::drawCenteredPiece(sf::RenderWindow& window, const sf::Texture& te
     //Criar uma sprite com a textura recebida
     sf::Sprite sprite(texture);
 
-    //Fica com o tamanho da textura da peça, faz cast para float da largura e comprimento
+    //Fica com o tamanho da textura da peça
     sf::Vector2u size = texture.getSize();
-    float offsetX = (TILE_SIZE - static_cast<float>(size.x)) / 2.0f;
-    float offsetY = (TILE_SIZE - static_cast<float>(size.y)) / 2.0f;
+    float offsetX = (TILE_SIZE - size.x) / 2.0f; //Largura
+    float offsetY = (TILE_SIZE - size.y) / 2.0f; //Altura
 
     //Usa largura e o comprimento para centrar a peça no seu quadrado do tabuleiro
     sprite.setPosition({ position.getCol() * TILE_SIZE + offsetX , position.getRow() * TILE_SIZE + offsetY });
