@@ -10,9 +10,6 @@ class Board {
         //Construtor
         Board();
         
-        //Metodo que inicializa o board com as posicoes iniciais
-        void initialize(); 
-        
         //Vai buscar a peça que está na posicao
         Piece* getPiece(const Position &position) const;
 
@@ -71,6 +68,9 @@ class Board {
         void updateEnPassantState(const Position &start, const Position &destination, PieceType movedType);
     
     private:
+        //Metodo que inicializa o board com as posicoes iniciais
+        void initialize(); 
+
         //Cria um board 8x8 com uma matriz
         //Cada quadrado tem um apontador para a peca ou nullptr se nenhuma peca
         std::unique_ptr<Piece> squares[8][8];
