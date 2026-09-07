@@ -2,6 +2,7 @@
 #include "enums/Color.h"
 #include "Move.h"
 
+//Declara a classe em vez de usar o include
 class Board; 
 
 //Todos os tipos das pecas
@@ -21,9 +22,7 @@ class Piece
         virtual PieceType getType() const = 0;
 
         //Devolve a cor da peça
-        Color getColor() const {
-            return color;
-        };
+        Color getColor() const { return color; };
 
         //Metodo para assinalar que a peça já se moveu
         void setHasMoved() { hasMoved = true; }
