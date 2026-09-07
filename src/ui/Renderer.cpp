@@ -197,7 +197,7 @@ void Renderer::drawGameOver(sf::RenderWindow& window, const std::string& message
     gameOverText.setFillColor(sf::Color(218, 165, 32));
     gameOverText.setOutlineColor(sf::Color::Black);
     gameOverText.setOutlineThickness(3.0f);
-
+    
     //Espaço que o texto ocupa
     sf::FloatRect bounds = gameOverText.getLocalBounds();
 
