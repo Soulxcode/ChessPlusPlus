@@ -181,7 +181,7 @@ void Game::render(){
     if (board.isCheckmate(currentTurn)){
         
         //Verifica quem ganhou para mostrar o texto
-        std::string winnerText = currentTurn == Color::White ? winnerText = "BLACK WINS" : winnerText = "WHITE WINS";
+        std::string winnerText = currentTurn == Color::White ? "BLACK WINS" : "WHITE WINS";
         renderer.drawGameOver(window, winnerText);
         renderer.drawRematchButton(window);
         gameOver = true;    
