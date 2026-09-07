@@ -25,12 +25,6 @@ class Board {
         //Verifica se o quadrado está a ser atingido por alguem
         bool isSquareAttacked(const Position &position, Color enemyColor) const;
 
-        //Verifica se há peças inimigas em alguma direção
-        bool checkDirection(const Position &destination, int rowStep, int colStep, Color enemyColor, DirectionType directionType) const;
-        
-        //Reverte ultima jogada
-        void undoMove(const Position &oldPosition, const Position &newPosition, std::unique_ptr<Piece> capturedPiece);
-
         //Encontra a posicao do rei
         Position findKing(Color color) const;
 
@@ -70,6 +64,12 @@ class Board {
     private:
         //Metodo que inicializa o board com as posicoes iniciais
         void initialize(); 
+
+        //Verifica se há peças inimigas em alguma direção
+        bool checkDirection(const Position &destination, int rowStep, int colStep, Color enemyColor, DirectionType directionType) const;
+
+        //Reverte ultima jogada
+        void undoMove(const Position &oldPosition, const Position &newPosition, std::unique_ptr<Piece> capturedPiece);
 
         //Cria um board 8x8 com uma matriz
         //Cada quadrado tem um apontador para a peca ou nullptr se nenhuma peca
