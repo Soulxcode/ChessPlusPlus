@@ -57,7 +57,7 @@ bool Rook::isValidMove(const Move &move, const Board &board) const
         Position currentPos(currentRow, currentCol);
 
         //Se a posição está ocupada movimento ilegal
-        if (!board.isSquareEmpty(currentPos)){
+        if(!board.isSquareEmpty(currentPos)){
             return false;
         }
         
