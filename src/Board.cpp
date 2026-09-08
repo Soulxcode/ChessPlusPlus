@@ -85,14 +85,10 @@ bool Board::isSquareEmpty(const Position &position) const{
     return getPiece(position) == nullptr;
 }
 
-bool Board::removePiece(const Position &position){
+void Board::removePiece(const Position &position){
 
-    //Se a posiçao tem uma peça, remove
-    if(getPiece(position) != nullptr){
-        squares[position.getRow()][position.getCol()] = nullptr;
-        return true;
-    }
-    return false;
+    //Remove a peça
+    squares[position.getRow()][position.getCol()] = nullptr;
 }
 
 bool Board::checkDirection(const Position &destination, int rowStep, int colStep, Color enemyColor, DirectionType directionType) const {

@@ -20,7 +20,7 @@ class Board {
         bool isSquareEmpty(const Position &position) const;
 
         //Remove peça da posição 
-        bool removePiece(const Position &position);
+        void removePiece(const Position &position);
 
         //Verifica se o quadrado está a ser atingido por alguem
         bool isSquareAttacked(const Position &position, Color enemyColor) const;
