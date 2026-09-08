@@ -296,8 +296,6 @@ bool Board::isMoveLegal(const Move& move, Color movingColor)
         return false;
     }
 
-    Color enemyColor = (movingColor == Color::White) ? Color::Black : Color::White;
-
     //Se for uma captura en passant, a peça capturada não está no destino, mas sim ao lado do início
     Position enPassantCapturedPos(move.start.getRow(), move.destination.getCol());
     std::unique_ptr<Piece> enPassantCaptured;
